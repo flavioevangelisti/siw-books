@@ -1,0 +1,204 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Montserrat&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #FDF5E6;
+  font-family: 'Raleway', sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #2E8B57;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+  user-select: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-style: italic;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #FFD700;
+}
+
+/* Hero section */
+.hero {
+  padding: 64px 24px 32px;
+  text-align: center;
+  max-width: 900px;
+  margin: auto;
+}
+
+.hero h1 {
+  font-family: 'Montserrat', sans-serif;
+  color: maroon;
+  font-size: 2.8rem;
+  margin-bottom: 16px;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  font-family: monospace;
+  margin-bottom: 16px;
+  padding: 0 12px;
+}
+
+/* Immagine centrale */
+.centered-photo {
+  text-align: center;
+  margin: 32px auto;
+}
+
+.centered-photo img {
+  max-width: 500px;
+  width: 90%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Footer */
+.footer {
+  background-color: #2E8B57;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  font-size: 0.9rem;
+  margin-top: 48px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .centered-photo img {
+    max-width: 90%;
+  }
+  
+  /* Sezione Libri */
+  .libri-section {
+    padding: 48px 24px;
+    max-width: 1200px;
+    margin: auto;
+    background-color: #fff;
+  }
+
+  .libri-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .libri-section .libri-link {
+    color: maroon;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: bold;
+  }
+
+  .libri-section .libri-link:hover {
+    color: #2E8B57;
+  }
+
+  /* Carosello orizzontale */
+  .libri-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 24px;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 12px;
+    scroll-behavior: smooth;
+  }
+
+  .libro-card {
+    flex: 0 0 auto;
+    width: 200px;
+    background-color: #FDF5E6;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 16px;
+    text-align: center;
+    scroll-snap-align: start;
+    transition: transform 0.2s ease;
+  }
+
+  .libro-card:hover {
+    transform: translateY(-6px);
+  }
+
+  .libro-card img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+
+  .libro-card h3 {
+    font-size: 1.1rem;
+    color: #2E8B57;
+    margin-bottom: 6px;
+  }
+
+  .libro-card p {
+    font-size: 0.95rem;
+    color: #333;
+  }
+
+  /* Nascondere scrollbar su WebKit */
+  .libri-carousel::-webkit-scrollbar {
+    display: none;
+  }
+  .libri-carousel {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .libro-card {
+      width: 160px;
+    }
+  }
+
+}

@@ -2,8 +2,6 @@ package it.uniroma3.siw.controller;
 
 import java.io.IOException;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import it.uniroma3.siw.model.Autore;
 
 import it.uniroma3.siw.service.AutoreService;
-import it.uniroma3.siw.service.CredentialsService;
-import it.uniroma3.siw.service.LibroService;
 import it.uniroma3.siw.validator.AutoreValidator;
 import jakarta.validation.Valid;
 
@@ -30,13 +26,7 @@ public class AutoreController {
 	@Autowired
 	private AutoreService autoreService;
 	@Autowired
-	private LibroService libroService;
-	@Autowired
-	private CredentialsService credentialsService;
-	@Autowired
 	private AutoreValidator autoreValidator;
-	@Autowired
-	private GlobalController globalController;
 	
 	@GetMapping("/paginaAutori")
     public String paginaAutori(Model model) {
@@ -73,7 +63,7 @@ public class AutoreController {
        this.autoreService.creaAutore(autore, bindingResult, imageFile);
        return "/admin/indexAdmin";
          } else {
-         return "admin/formCreaLibro";
+         return "admin/formCreaAutore";
           }
 }
 	 @GetMapping(value="/admin/gestisciAutori")

@@ -25,15 +25,17 @@
             <span th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}"></span>
         </div>
         
-        <div class="form-group">
-            <label>Autori:</label>
-    <select multiple th:field="*{autori}" class="form-control">
-        <option th:each="autore : ${listaAutori}"
-                th:value="${autore.id}"
-                th:text="${autore.cognome}">
-        </option>
-    </select>
-    <span th:if="${#fields.hasErrors('autori')}" th:errors="*{autori}"></span>        </div>
+		<div class="form-group">
+		    <label>Autori:</label>
+		    <select multiple th:field="*{autori}" class="form-control">
+		        <option th:each="autore : ${listaAutori}"
+		                th:value="${autore.id}"
+		                th:text="${autore.cognome}">
+		        </option>
+		    </select>
+		    <span th:if="${#fields.hasErrors('autori')}" th:errors="*{autori}"></span>
+		</div>
+
             
 	<div class="form-group">
   <span>Foto del libro:</span> <input type="file"
