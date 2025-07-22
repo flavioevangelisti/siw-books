@@ -1,35 +1,30 @@
 <!DOCTYPE html>
-<html>
-<!DOCTYPE html>
-<html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Siw Pinacoteca Login</title>
-<link rel="stylesheet" href="/css/stilelogin.css" />
+  <meta charset="UTF-8" />
+  <title>Siw Pinacoteca Login</title>
+  <link rel="stylesheet" href="/css/stilelogin.css" />
 </head>
 <body>
+  <div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
 
-    
-</head>
-<body>
-    <div class="background">
-        <div class="shape"></div>
-        <div class="shape"></div>
-    </div>
-    <form th:action="@{/login}" method="POST">
-        <h3>Login </h3>
+  <form th:action="@{/login}" method="POST">
+    <h3>Login</h3>
 
-        <label for="username">Username</label>
-        <input name="username" type="text" required />
+    <label for="username">Username</label>
+    <input name="username" type="text" required />
 
-        <label for="password">Password</label>
-       <input name="password" type="password" required />
-	<span th:if="${param.error != null}">Username o password errati</span>
-        <button type="submit">Login</button>
-        </div>
-    </form>
-	
+    <label for="password">Password</label>
+    <input name="password" type="password" required />
 
+    <span th:if="${param.error != null}">Username o password errati</span>
+
+    <button type="submit">Login</button>
+
+    <p>Non hai ancora un profilo? <a href="formRegistrazione">Registrati</a></p>
+  </form>
 </body>
-</html>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
   <meta charset="UTF-8">
   <title>Siw Books - Homepage</title>
@@ -11,12 +11,16 @@
 
   <!-- Navbar -->
   <header class="navbar">
-    <div class="logo">Siw Books</div>
+    <a class="logo" th:href="@{/}">Siw Books</a>
     <nav class="nav-links">
       <a href="paginaLibri">Libri</a>
       <a href="paginaAutori">Gli autori</a>
-      <a href="formRegistrazione">Registrazione</a>
-      <a href="/login">Login</a>
+
+      <!-- Login se non autenticato -->
+      <a th:if="${credentials == null}" href="/login">Login</a>
+
+      <!-- Logout se autenticato -->
+      <a th:if="${credentials != null}" th:href="@{/logout}">Logout</a>
     </nav>
   </header>
 

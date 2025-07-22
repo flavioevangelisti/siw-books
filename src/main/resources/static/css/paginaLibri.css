@@ -1,0 +1,91 @@
+.libri-container {
+  display: flex;
+  gap: 32px;
+  overflow-x: auto;
+  padding: 40px 24px;
+  scroll-snap-type: x mandatory;
+}
+
+.libri-container::-webkit-scrollbar {
+  height: 8px;
+}
+.libri-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.libro-card {
+  flex: 0 0 auto;
+  width: 240px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  scroll-snap-align: start;
+  transition: box-shadow 0.2s;
+}
+
+.libro-card:hover {
+  box-shadow: 0 6px 24px rgba(255,153,0,0.18);
+}
+
+.libro-img {
+  width: 140px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  background: #f4f6f9;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+.libro-titolo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #232f3e;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.libro-autore {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #666;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.btn-aggiungi-recensione {
+  background-color: #2E8B57;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-aggiungi-recensione:hover {
+  background-color: #246b45;
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  .libri-container {
+    gap: 18px;
+    padding: 24px 16px;
+  }
+  .libro-card {
+    width: 85vw;
+    padding: 16px;
+  }
+  .libro-img {
+    width: 100px;
+    height: 140px;
+  }
+}

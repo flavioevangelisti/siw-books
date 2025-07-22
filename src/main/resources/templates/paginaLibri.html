@@ -1,36 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
-<meta charset="ISO-8859-1">
-<title>Libri</title>
-<link rel="stylesheet" href="/css/paginaLibri.css" />
+  <meta charset="UTF-8" />
+  <title>Libri</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="/css/paginaLibri.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway&display=swap"
+    rel="stylesheet"
+  />
 </head>
-<body>
 
-<header>
-  
-	<div class="header-links">
-	  <a href="paginaRecensioni">Recensioni</a> 
-           <a href="/">Home</a>
-            <a href="/logout">Logout</a>
-          
-               
-        </div>
-    </header>
-    
- <h1>Libri</h1>
-    
-    <div class="container">
-        <div th:if="${libri == null || libri.isEmpty()}">Non ci sono libri nel sistema</div>
-        <div th:each="libro : ${libri}" class="libro-item">
-            <a th:href="@{'/libro' + ${libro.id}}" th:text="${libro.titolo}"></a>
-<!--             <a th:href="@{'/libro' + ${libro.id}}" th:text="${libro.anno}"></a>  -->
-            
-				
- 		
-				
-             
-            <img th:src="'data:image/jpeg;base64,' + ${libro.immagine}" alt="Immagine libro">
-        </div>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <a class="logo" href="/">Siw Books</a>
+    <nav class="nav-links">
+	  <a href="paginaRecensioni">Recensioni</a>
+      <a href="/paginaLibri">Libri</a>
+      <a href="/paginaAutori">Gli autori</a>
+      <a href="/formRegistrazione">Registrazione</a>
+      <a href="/login">Login</a>
+    </nav>
+  </header>
+
+  <!-- Contenuto -->
+  <main>
+    <h1 class="pagina-titolo">I nostri libri</h1>
+
+    <div class="libri-container" th:if="${not libri.isEmpty()}">
+      <div th:each="libro : ${libri}" class="libro-card">
+        <a
+          th:href="@{'/libro/' + ${libro.id}}"
+          class="libro-link"
+        >
+          <img
+            class="libro-img"
+            th:src="'data:image/jpeg;base64,' + ${libro.immagine}"
+            alt="Copertina libro"
+          />
+          <div class="libro-titolo" th:text="${libro.titolo}">Titolo Libro</div>
+          <div
+            class="libro-autore"
+            th:text="${libro.autore.nome + ' ' + libro.autore.cognome}"
+          >
+            Autore
+          </div>
+        </a>
+        <form
+          th:action="@{/formCreaRecensione}"
+          method="get"
+          class="form-aggiungi-recensione"
+        >
+          <input type="hidden" name="idLibro" th:value="${libro.id}" />
+          <button class="btn-aggiungi-recensione" type="submit">
+            Aggiungi recensione
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div
+      th:if="${libri == null || libri.isEmpty()}"
+      class="no-libri-msg"
+    >
+      <span>Non ci sono libri nel sistema</span>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>SIW BOOKS &copy; 2025</p>
+  </footer>
 </body>
 </html>
