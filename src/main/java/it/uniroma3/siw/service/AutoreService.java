@@ -1,6 +1,7 @@
 package it.uniroma3.siw.service;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +59,7 @@ public class AutoreService {
 	public void modifica( Long id,
 			 String nuovoNome,  String nuovoCognome,
 			 String nuovaNazionalita,
-			 Integer nuovaDataNascita,  Integer nuovaDataMorte
+			 LocalDate nuovaDataNascita,  LocalDate nuovaDataMorte
 			) {
 		Autore a = this.findById(id);
 		a.setNome(nuovoNome);

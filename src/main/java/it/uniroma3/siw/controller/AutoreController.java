@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -83,8 +84,8 @@ public class AutoreController {
 				@RequestParam("nuovoNome") String nuovoNome,
 				@RequestParam("nuovoCognome") String nuovoCognome,
 				@RequestParam("nuovaNazionalita") String nuovaNazionalita,
-				@RequestParam("nuovaDataNascita") Integer nuovaDataNascita,
-				@RequestParam("nuovaDataMorte") Integer nuovaDataMorte,
+				@RequestParam("nuovaDataNascita") LocalDate nuovaDataNascita,
+				@RequestParam("nuovaDataMorte") LocalDate nuovaDataMorte,
 			 Model model) {
 	        this.autoreService.modifica(id,nuovoNome,nuovoCognome,nuovaNazionalita,nuovaDataNascita,nuovaDataMorte);
 	        return "/admin/indexAdmin";

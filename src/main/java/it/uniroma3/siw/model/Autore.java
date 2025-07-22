@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,9 +31,8 @@ public class Autore {
 	private String nazionalita;
 	
 	@NotNull
-	private Integer dataNascita;
-	@NotNull
-	private Integer dataMorte;
+	private LocalDate dataNascita;
+	private LocalDate dataMorte;
 	
 	
 	
@@ -111,19 +111,19 @@ public class Autore {
 		this.libri = libri;
 	}
 
-	public Integer getDataNascita() {
+	public LocalDate getDataNascita() {
 		return dataNascita;
 	}
 
-	public void setDataNascita(Integer dataNascita) {
+	public void setDataNascita(LocalDate dataNascita) {
 		this.dataNascita = dataNascita;
 	}
 
-	public Integer getDataMorte() {
+	public LocalDate getDataMorte() {
 		return dataMorte;
 	}
 
-	public void setDataMorte(Integer dataMorte) {
+	public void setDataMorte(LocalDate dataMorte) {
 		this.dataMorte = dataMorte;
 	}
 }
