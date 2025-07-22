@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Autore</title>
+<link rel="stylesheet" href="/css/autore.css">
+</head>
+<body>
+
+<div class="header-links">
+		<a href="/">Home</a> 
+		<a href="/login">Login</a>
+	</div>
+
+<main>
+		<h1 th:text="${autore.nome}">Nome autore</h1>
+
+		<div class="autore-info">
+			<div class="info-item">
+				<label>Cognome: <span th:text="${autore.cognome}">cognome</span></label>
+			</div>
+			<div class="info-item">
+				<label>Nazionalita: <span th:text="${autore.nazionalita}">citta</span></label>
+			</div>
+			<div class="info-item">
+				<label>Data di nascita: <span th:text="${autore.dataNascita}">data di nascita</span></label>
+			</div>
+			<div class="info-item">
+				<label>data di morte: <span th:text="${autore.dataMorte}">data di morte</span></label>
+			</div>
+			
+			
+		</div>
+
+
+		<img th:src="'data:image/jpeg;base64,' + ${autore.immagine}"
+			alt="Immagine autore">
+
+
+		<div class="no-autore" th:unless="${autore}">Non esiste</div>
+	</main>
+
+</body>
+</html>
