@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title> pagina recensioni</title>
+<link rel="stylesheet" href="/css/paginaRecensioni.css" />
+</head>
+<body>
+
+<header>
+  
+	<div class="header-links">
+           <a href="/">Home</a>
+            <a href="/formCreaRecensione"> aggiungi recensione</a>
+        </div>
+    </header>
+    
+    <h1>Recensioni</h1>
+ 
+    <div class="container">
+<!--         <div th:if="${recensione == null || recensione.isEmpty()}">Non ci sono recensioni nel sistema</div> -->
+        <div th:each="recensione : ${recensioni}" class="recensione-item">
+            
+            <a th:href="@{'/recensione' + ${recensione.id}}" th:text="${recensione.voto}"></a>
+<!--              <a th:href="@{'/recensione' + ${recensione.id}}" th:text="${recensione.testo}"></a> -->
+               <a th:href="@{'/recensione' + ${recensione.id}}" th:text="${recensione.libro.titolo}"></a>
+				
+ 		
+				
+             
+            
+        </div>
+
+</body>
+</html>

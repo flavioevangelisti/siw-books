@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>recensione</title>
+<link rel="stylesheet" href="/css/recensione.css">
+</head>
+<body>
+
+<header>
+	<div class="header-links">
+		<a href="/">Home</a> 
+		<a href="/login">Login</a>
+	</div>
+</header>
+
+<main>
+		<h1 th:text="'Recensione:' + ${recensione.libro.titolo}"> titolo libro recensione</h1>
+
+		<div class="recensione-info">
+			<div class="info-item">
+				<label> voto: <span th:text="${recensione.voto}">voto recensione</span></label>
+			</div>
+			
+			<div class="recensione-info">
+			<div class="info-item">
+				<label> <span th:text="${recensione.testo}"> testo recensione</span></label>
+			</div>
+			
+			
+<div class="no-recensione" th:unless="${recensione}">Non esiste</div>
+	</main>
+</body>
+</html>

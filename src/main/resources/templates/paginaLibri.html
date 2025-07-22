@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Libri</title>
+<link rel="stylesheet" href="/css/paginaLibri.css" />
+</head>
+<body>
+
+<header>
+  
+	<div class="header-links">
+	  <a href="paginaRecensioni">Recensioni</a> 
+           <a href="/">Home</a>
+            <a href="/logout">Logout</a>
+          
+               
+        </div>
+    </header>
+    
+ <h1>Libri</h1>
+    
+    <div class="container">
+        <div th:if="${libri == null || libri.isEmpty()}">Non ci sono libri nel sistema</div>
+        <div th:each="libro : ${libri}" class="libro-item">
+            <a th:href="@{'/libro' + ${libro.id}}" th:text="${libro.titolo}"></a>
+<!--             <a th:href="@{'/libro' + ${libro.id}}" th:text="${libro.anno}"></a>  -->
+            
+				
+ 		
+				
+             
+            <img th:src="'data:image/jpeg;base64,' + ${libro.immagine}" alt="Immagine libro">
+        </div>
+</body>
+</html>

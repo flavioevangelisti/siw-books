@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Autori</title>
+<link rel="stylesheet" href="/css/paginaAutori.css" />
+</head>
+<body>
+<header>
+  
+	<div class="header-links">
+           <a href="/">Home</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </header>
+    
+ <h1>Autori</h1>
+<!--  <span th:text="'Numero autori:' + ${size}"></span> -->
+    <div class="container">
+        <div th:if="${autori == null || autori.isEmpty()}">Non ci sono autori nel sistema</div>
+        <div th:each="autore : ${autori}" class="autore-item">
+            <a th:href="@{'/autore' + ${autore.id}}" th:text="${autore.nome}"></a>
+            <a th:href="@{'/autore' + ${autore.id}}" th:text="${autore.cognome}"></a>  
+<!--             <a th:href="@{'/autore' + ${autore.id}}" th:text="${autore.dataNascita}"></a>   -->
+<!--              <a th:href="@{'/autore' + ${autore.id}}" th:text="${autore.dataMorte}"></a> -->
+<!--              <a th:href="@{'/autore' + ${autore.id}}" th:text="${autore.nazionalita}"></a>    -->
+            <img th:src="'data:image/jpeg;base64,' + ${autore.immagine}" alt="Immagine autore">
+        </div>
+</body>
+</html>

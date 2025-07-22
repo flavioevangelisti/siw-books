@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Siw Pinacoteca Login</title>
+<link rel="stylesheet" href="/css/stilelogin.css" />
+</head>
+<body>
+
+    
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form th:action="@{/login}" method="POST">
+        <h3>Login </h3>
+
+        <label for="username">Username</label>
+        <input name="username" type="text" required />
+
+        <label for="password">Password</label>
+       <input name="password" type="password" required />
+	<span th:if="${param.error != null}">Username o password errati</span>
+        <button type="submit">Login</button>
+        </div>
+    </form>
+	
+
+</body>
+</html>
+</html>

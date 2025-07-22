@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>nuova Recensione</title>
+<link rel="stylesheet" href="/css/re.css">
+</head>
+<body>
+
+ <h1>Aggiungi Recensione</h1>
+    <form th:action="@{/formCreaRecensione}" method="POST" th:object="${recensione}" enctype="multipart/form-data">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+        </div>
+        
+         <div class="form-group">
+            <label>voto:</label>
+            <span><input type="text" th:field="${recensione.voto}"></span>
+            <span th:if="${#fields.hasErrors('voto')}" th:errors="*{voto}"></span>
+        </div>
+
+        <div class="form-group">
+            <label>testo:</label>
+            <span><input type="text" th:field="${recensione.testo}"></span>
+            <span th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"></span>
+        </div>
+        
+        <div class="form-group">
+            <label>libri:</label>
+    <select multiple th:field="*{libro}" class="form-control">
+        <option th:each="libro : ${listaLibri}"
+                th:value="${libro.id}"
+                th:text="${libro.titolo}">
+        </option>
+    </select>
+    <span th:if="${#fields.hasErrors('libro')}" th:errors="*{libro}"></span>        </div>
+            
+	
+				
+                
+</div>
+        <div class="form-group">
+            <span><button type="submit">Conferma</button></span>
+        </div>
+</form>
+</body>
+</html>

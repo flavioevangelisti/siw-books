@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>libro</title>
+<link rel="stylesheet" href="/css/libro.css">
+</head>
+<body>
+<header>
+	<div class="header-links">
+		<a href="/">Home</a> 
+		<a href="/login">Login</a>
+	</div>
+</header>
+	<main>
+		<h1 th:text="${libro.titolo}">Titolo libro</h1>
+
+		<div class="libro-info">
+			<div class="info-item">
+				<label>Anno: <span th:text="${libro.anno}">anno</span></label>
+			</div>
+			
+			<div class="libro-info">
+				<div class="info-item">
+				<label>Autori: <span th:each="autore : ${listaAutori}"
+                th:value="${autore.id}"
+                th:text="${autore.cognome}"></span></label>
+			</div>
+			
+		</div>
+
+
+		<img th:src="'data:image/jpeg;base64,' + ${libro.immagine}"
+			alt="Immagine libro">
+
+
+		<div class="no-libro" th:unless="${libro}">Non esiste</div>
+	</main>
+</body>
+</html>
