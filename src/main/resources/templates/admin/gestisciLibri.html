@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>pagina libri admin</title>
+<link rel="stylesheet" href="/css/paginaLibri1.css" />
+</head>
+<body>
+
+<header>
+	<div class="header-links">
+           <a href="/">Home</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </header>
+    
+    <h1>Libri</h1>
+ 
+    <div class="container">
+        <div th:if="${libri == null || libri.isEmpty()}">Non ci sono libri nel sistema</div>
+        <div th:each="libro : ${libri}" class="libro-item">
+            <a th:href="@{'/libro' + ${libro.id}}" th:text="${libro.titolo}"></a>
+            <a th:href="@{'/admin/formModificaLibro' + '/' + ${libro.id}}">Aggiorna</a>
+            <a th:href="@{'/admin/cancellaLibro' + '/' + ${libro.id}}">Cancella</a>
+            
+				</div>
+    
+</body>
+</html>

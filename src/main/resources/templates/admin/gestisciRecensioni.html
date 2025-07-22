@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>pagina recensioni admin</title>
+<link rel="stylesheet" href="/css/paginaRecensioni1.css" />
+</head>
+<body>
+
+<header>
+	<div class="header-links">
+           <a href="/">Home</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </header>
+    
+     <h1>Recensioni</h1>
+ 
+    <div class="container">
+        <div th:if="${recensioni == null || recensioni.isEmpty()}">Non ci sono recensioni nel sistema</div>
+        <div th:each="recensione : ${recensioni}" class="recensione-item">
+            <a th:href="@{'/recensione' + ${recensione.id}}" th:text="${recensione.testo}"></a>
+            
+            <a th:href="@{'/admin/cancellaRecensione' + '/' + ${recensione.id}}">Cancella</a>
+            
+				</div>
+
+</body>
+</html>

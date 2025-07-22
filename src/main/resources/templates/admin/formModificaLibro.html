@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Modifica Libro</title>
+<link rel="stylesheet" href="/css/libro.css">
+</head>
+<body>
+
+<header>
+
+	
+		<div class="header-links">
+		    <a href="/">Home</a>
+            <a href="/logout">Logout</a>
+        </div>
+	
+	</header>
+	
+
+<h1>Modifica Libro</h1>
+	<main>
+	<div class="libro-info">
+	<form th:action="@{/admin/formModificaLibro/{id}}" method="POST" >
+	<input type="hidden" name="id" th:value="${libro.id}" />
+  		
+		<div class="info-item">
+		<label>
+			 <span><a>Titolo:</a> <span><input type="text" name="nuovoTitolo" placeholder="Nuovo titolo" th:value="${libro.titolo}" /></span>
+		   
+		   
+		    
+		</label>
+</div><div class="info-item">
+		<label>
+			<a>Anno:</a> <span><input type="text" name="nuovoAnno" placeholder="Nuovo anno" th:value="${libro.anno}" /></span>
+
+		  
+		
+		</label></div><div class="info-item">
+		<label>
+			<span><button type="submit">Conferma</button></span>
+		</label></div>
+	</form>
+	</div>
+	</main>
+	
+
+</body>
+</html>

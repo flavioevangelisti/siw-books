@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>nuovo autore</title>
+<link rel="stylesheet" href="/css/au.css">
+</head>
+<body>
+
+<h1>Aggiungi Autore</h1>
+    <form th:action="@{/admin/formCreaAutore}" method="POST" th:object="${autore}" enctype="multipart/form-data">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+        </div>
+        
+         <div class="form-group">
+            <label>nome:</label>
+            <span><input type="text" th:field="${autore.nome}"></span>
+            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+        </div>
+
+        <div class="form-group">
+            <label>cognome:</label>
+            <span><input type="text" th:field="${autore.cognome}"></span>
+            <span th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
+        </div>
+        
+        
+          <div class="form-group">
+            <label>nazionalita:</label>
+            <span><input type="text" th:field="${autore.nazionalita}"></span>
+            <span th:if="${#fields.hasErrors('nazionalita')}" th:errors="*{nazionalita}"></span>
+        </div>
+        
+          <div class="form-group">
+            <label> data di nascita:</label>
+            <span><input type="text" th:field="${autore.dataNascita}"></span>
+            <span th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}"></span>
+        </div>
+        
+          <div class="form-group">
+            <label> data di morte:</label>
+            <span><input type="text" th:field="${autore.dataMorte}"></span>
+            <span th:if="${#fields.hasErrors('dataMorte')}" th:errors="*{dataMorte}"></span>
+        </div>
+       
+       
+            
+	<div class="form-group">
+  <span>Foto Autore:</span> <input type="file"
+					id="imageFile" name="imageFile" >
+				
+                
+</div>
+        <div class="form-group">
+            <span><button type="submit">Conferma</button></span>
+        </div>
+</form>
+</body>
+</html>
