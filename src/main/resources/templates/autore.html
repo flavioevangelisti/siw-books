@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Autore</title>
 <link rel="stylesheet" href="/css/autore.css">
 </head>
 <body>
 
 <div class="header-links">
-		<a href="/">Home</a> 
-		<a href="/login">Login</a>
-	</div>
+		<a href="/" th:href="@{/}">Home</a> 
+		<a href="/login" th:href="@{/login}">Login</a>
+</div>
 
 <main>
 		<h1 th:text="${autore.nome}">Nome autore</h1>
@@ -20,25 +20,22 @@
 				<label>Cognome: <span th:text="${autore.cognome}">cognome</span></label>
 			</div>
 			<div class="info-item">
-				<label>Nazionalita: <span th:text="${autore.nazionalita}">citta</span></label>
+				<label>Nazionalita: <span th:text="${autore.nazionalita}">nazionalità</span></label>
 			</div>
 			<div class="info-item">
 				<label>Data di nascita: <span th:text="${autore.dataNascita}">data di nascita</span></label>
 			</div>
 			<div class="info-item">
-				<label>data di morte: <span th:text="${autore.dataMorte}">data di morte</span></label>
+				<label>Data di morte: <span th:text="${autore.dataMorte}">data di morte</span></label>
 			</div>
-			
-			
 		</div>
 
-
-		<img th:src="'data:image/jpeg;base64,' + ${autore.immagine}"
-			alt="Immagine autore">
-
+		<div th:if="${autore.immagine != null}">
+			<img th:src="'data:image/jpeg;base64,' + ${autore.immagine}" alt="Immagine autore">
+		</div>
 
 		<div class="no-autore" th:unless="${autore}">Non esiste</div>
-	</main>
+</main>
 
 </body>
 </html>

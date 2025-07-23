@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.model.Autore;
 import it.uniroma3.siw.model.Libro;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.AutoreService;
@@ -47,10 +48,10 @@ public class LibroController {
 		return "paginaLibri.html";
 	}
 
-	@GetMapping("/libro/{id}")
-	public String getLibro(@PathVariable("id") Long id, Model model) {
-	    Libro libro = libroService.findById(id);
-	    model.addAttribute("libro", libro);
+	@GetMapping("/autore/{id}")
+	public String getAutore(@PathVariable("id") Long id, Model model) {
+	    Autore autore = autoreService.findById(id);
+	    model.addAttribute("autore", autore);
 
 	    // Recupera utente loggato
 	    User user = userService.getUser();
@@ -58,8 +59,9 @@ public class LibroController {
 	        model.addAttribute("credenziali", credentialsService.getCredentials(user.getId()));
 	    }
 
-	    return "libro.html";
+	    return "autore.html";
 	}
+
 	
 	@GetMapping("/libro/{id}/recensioni")
 	public String getRecensioniLibro(@PathVariable("id") Long id, Model model) {
