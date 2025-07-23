@@ -37,7 +37,7 @@ public class Recensione {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user;
+	private User recensore;
 
 	public Long getId() {
 		return id;
@@ -88,11 +88,11 @@ public class Recensione {
 		this.libro = libro;
 	}
 
-	public User getUser() {
-		return user;
+	public User getRecensore() {
+		return recensore;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setRecensore(User recensore) {
+		this.recensore = recensore;
 	}
 }

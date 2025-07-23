@@ -17,7 +17,7 @@
             <li th:each="recensione : ${recensioni}">
                 <strong>Voto:</strong> <span th:text="${recensione.voto}">5</span> / 5<br />
                 <strong>Testo:</strong> <span th:text="${recensione.testo}">Testo recensione</span><br />
-                <em>Da:</em> <span th:text="${recensione.user.name} + ' ' + ${recensione.user.surname}">Nome Cognome</span>
+                <em>Da:</em> <span th:text="${recensione.recensore.name} + ' ' + ${recensione.recensore.surname}">Nome Cognome</span>
             </li>
         </ul>
     </div>

@@ -1,11 +1,14 @@
 package it.uniroma3.siw.model;
 
+import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -23,11 +26,8 @@ public class User {
 	private String surname;
 	@Email
 	private String email;
-	
-	
-	
-	
-	
+	@OneToMany(mappedBy = "recensore", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Recensione> recensioni;
 	public Long getId() {
 		return id;
 	}
@@ -67,6 +67,12 @@ public class User {
 		User other = (User) obj;
 		return Objects.equals(email, other.email) && Objects.equals(name, other.name)
 				&& Objects.equals(surname, other.surname);
+	}
+	public List<Recensione> getRecensioni() {
+		return recensioni;
+	}
+	public void setRecensioni(List<Recensione> recensioni) {
+		this.recensioni = recensioni;
 	}
 	
 	

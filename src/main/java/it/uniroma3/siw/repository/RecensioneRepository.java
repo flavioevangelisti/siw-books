@@ -19,9 +19,9 @@ public interface RecensioneRepository extends CrudRepository<Recensione,Long>{
     
     public boolean existsByTesto(String testo);
     
-    public Recensione findByUser(User utente);
+    public Recensione findByRecensore(User recensore);
 
-	public boolean existsByUser(User user);
+	public boolean existsByRecensore(User recensore);
 	
-	public  boolean existsByUserAndLibro(User user, Libro libro);
+	public  boolean existsByRecensoreAndLibro(User recensore, Libro libro);
 }

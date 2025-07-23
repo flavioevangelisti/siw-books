@@ -20,8 +20,8 @@ public class RecensioneValidator implements Validator {
 	@Override
 	public void validate(Object o, Errors errors) {
 	    Recensione recensione  = (Recensione)o;
-	    if ( recensione.getUser() != null
-	        && recensioneService.existsByUser(recensione.getUser())) {
+	    if ( recensione.getRecensore() != null
+	        && recensioneService.existsByUser(recensione.getRecensore())) {
 	        errors.reject("recensione.duplicate");
 	    }
 	}

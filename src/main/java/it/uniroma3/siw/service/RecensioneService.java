@@ -25,11 +25,11 @@ public class RecensioneService {
 	}
 
 	public boolean existsByUser(User user) {
-		return  recensioneRepository.existsByUser(user);
+		return  recensioneRepository.existsByRecensore(user);
 	}
 	
 	public boolean existsByUserAndLibro(User user, Libro libro) {
-	    return recensioneRepository.existsByUserAndLibro(user, libro);
+	    return recensioneRepository.existsByRecensoreAndLibro(user, libro);
 	}
 
 
@@ -48,7 +48,7 @@ public class RecensioneService {
 			User user) {
 		{
             
-			recensione.setUser(user);
+			recensione.setRecensore(user);
 			this.save(recensione);	
 
 		}
