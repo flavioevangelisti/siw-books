@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Modifica Recensione</title>
+    <link rel="stylesheet" th:href="@{/css/stile.css}" href="/css/stile.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+
+    <header class="navbar">
+        <a class="logo" th:href="@{/}">Siw Books</a>
+    </header>
+    <div style="height: 80px;"></div>
+
+    <main class="main-content">
+        <section class="edit-review-section">
+            <h1>Modifica la tua recensione</h1>
+
+            <form th:action="@{'/recensioni/' + ${recensione.id} + '/modifica'}" 
+                  th:object="${recensione}" 
+                  method="post" class="review-form">
+
+                <div class="form-group">
+                    <label for="testo">Testo della recensione:</label>
+                    <textarea id="testo" th:field="*{testo}" required rows="6"></textarea>
+                    <div th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}" class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="voto">Voto (da 1 a 5):</label>
+                    <input type="number" id="voto" th:field="*{voto}" min="1" max="5" required />
+                    <div th:if="${#fields.hasErrors('voto')}" th:errors="*{voto}" class="error-message"></div>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="cta-button">Salva modifiche</button>
+                    <a th:href="@{'/user/' + ${recensione.recensore.id}}" class="cta-button secondary">Annulla</a>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Edicola del Faro - Grazie per essere con noi</p>
+        </div>
+    </footer>
+
+</body>
+</html>

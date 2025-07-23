@@ -93,7 +93,7 @@ public class RecensioneController {
 	    // Non serve mettere recensione.setRecensore(utente) qui, lo fa già il service
 	    recensioneService.creaRecensione(recensione, utente);
 
-	    return "index.html";
+	    return "paginaLibri.html";
 	}
 
 
@@ -108,10 +108,70 @@ public class RecensioneController {
 	public String indexRecensione() {
 		return "admin/indexRecensione.html";
 	}
+	
+	@GetMapping("/recensioni/{id}/elimina")
+	public String eliminaRecensione(@PathVariable("id") Long id,
+	                               @AuthenticationPrincipal UserDetails currentUser) {
 
-	@GetMapping("/admin/cancellaRecensione/{id}")
-	public String cancellaRecensione(@PathVariable("id") Long id, Model model) {
-		this.recensioneService.delete(id);
-		return "admin/indexAdmin.html";
+	    Credentials credentials = credentialsService.getCredentials(currentUser.getUsername());
+	    User utente = credentials.getUser();
+
+	    Recensione recensione = recensioneService.findById(id);
+
+	    boolean isAdmin = credentials.getRole().equals("ROLE_ADMIN");
+	    boolean isRecensore = recensione.getRecensore().getId().equals(utente.getId());
+
+	    if (isAdmin || isRecensore) {
+	        recensioneService.delete(id);
+	    }
+
+	    if (isAdmin) {
+	        return "redirect:/admin/gestisciRecensioni";
+	    } else {
+	        return "redirect:/user/" + utente.getId();
+	    }
 	}
+	
+	@GetMapping("/recensioni/{id}/modifica")
+	public String mostraFormModifica(@PathVariable("id") Long id,
+	                                 @AuthenticationPrincipal UserDetails currentUser,
+	                                 Model model) {
+	    Credentials credentials = credentialsService.getCredentials(currentUser.getUsername());
+	    User utente = credentials.getUser();
+
+	    Recensione recensione = recensioneService.findById(id);
+	    if (!recensione.getRecensore().getId().equals(utente.getId())) {
+	        return "redirect:/accessoNegato"; // oppure una pagina personalizzata
+	    }
+
+	    model.addAttribute("recensione", recensione);
+	    return "formModificaRecensione.html";
+	}
+
+	@PostMapping("/recensioni/{id}/modifica")
+	public String modificaRecensione(@PathVariable("id") Long id,
+	                                 @Valid @ModelAttribute("recensione") Recensione recensioneModificata,
+	                                 BindingResult bindingResult,
+	                                 @AuthenticationPrincipal UserDetails currentUser,
+	                                 Model model) {
+	    Credentials credentials = credentialsService.getCredentials(currentUser.getUsername());
+	    User utente = credentials.getUser();
+
+	    Recensione originale = recensioneService.findById(id);
+	    if (!originale.getRecensore().getId().equals(utente.getId())) {
+	        return "redirect:/accessoNegato";
+	    }
+
+	    recensioneValidator.validate(recensioneModificata, bindingResult);
+	    if (bindingResult.hasErrors()) {
+	        return "formModificaRecensione.html";
+	    }
+
+	    originale.setTesto(recensioneModificata.getTesto());
+	    originale.setVoto(recensioneModificata.getVoto());
+	    recensioneService.save(originale);
+
+	    return "redirect:/user/" + utente.getId();
+	}
+
 }
