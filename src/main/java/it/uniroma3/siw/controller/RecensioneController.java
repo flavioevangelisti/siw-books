@@ -93,7 +93,7 @@ public class RecensioneController {
 	    // Non serve mettere recensione.setRecensore(utente) qui, lo fa già il service
 	    recensioneService.creaRecensione(recensione, utente);
 
-	    return "paginaLibri.html";
+	    return "index.html";
 	}
 
 
@@ -118,7 +118,7 @@ public class RecensioneController {
 
 	    Recensione recensione = recensioneService.findById(id);
 
-	    boolean isAdmin = credentials.getRole().equals("ROLE_ADMIN");
+	    boolean isAdmin = credentials.getRole().equals("ADMIN");
 	    boolean isRecensore = recensione.getRecensore().getId().equals(utente.getId());
 
 	    if (isAdmin || isRecensore) {

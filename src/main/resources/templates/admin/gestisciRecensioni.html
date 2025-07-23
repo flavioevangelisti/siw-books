@@ -21,7 +21,7 @@
         <div th:each="recensione : ${recensioni}" class="recensione-item">
             <a th:href="@{'/recensione' + ${recensione.id}}" th:text="${recensione.testo}"></a>
             
-            <a th:href="@{'/admin/cancellaRecensione' + '/' + ${recensione.id}}">Cancella</a>
+           <a th:href="@{'/recensioni/' + ${recensione.id} + '/elimina'}">Cancella</a>
             
 				</div>
 
