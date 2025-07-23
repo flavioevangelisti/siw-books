@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Recensioni di [[${libro.titolo}]]</title>
+</head>
+<body>
+    <h1>Recensioni per il libro: <span th:text="${libro.titolo}">Titolo Libro</span></h1>
+    <p>Anno: <span th:text="${libro.anno}">Anno</span></p>
+    
+    <div th:if="${#lists.isEmpty(recensioni)}">
+        <p>Non ci sono recensioni per questo libro.</p>
+    </div>
+    
+    <div th:if="${!#lists.isEmpty(recensioni)}">
+        <ul>
+            <li th:each="recensione : ${recensioni}">
+                <strong>Voto:</strong> <span th:text="${recensione.voto}">5</span> / 5<br />
+                <strong>Testo:</strong> <span th:text="${recensione.testo}">Testo recensione</span><br />
+                <em>Da:</em> <span th:text="${recensione.user.name} + ' ' + ${recensione.user.surname}">Nome Cognome</span>
+            </li>
+        </ul>
+    </div>
+    
+    <a th:href="@{/paginaLibri}">Torna alla lista dei libri</a>
+</body>
+</html>

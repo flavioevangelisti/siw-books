@@ -49,7 +49,7 @@ public class LibroController {
 		return "paginaLibri.html";
 	}
 
-	@GetMapping("/libro{id}")
+	@GetMapping("/libro/{id}")
 	public String getLibro(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("libro", this.libroService.findById(id));
 		model.addAttribute("listaAutori", this.autoreService.findById(id));

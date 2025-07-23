@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Libro;
@@ -29,76 +28,81 @@ import jakarta.validation.Valid;
 @Controller
 public class RecensioneController {
 
-	@Autowired
-	private RecensioneService recensioneService;
-	@Autowired
-	private CredentialsService credentialsService;
-	@Autowired
-	private GlobalController globalController;
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private LibroService libroService;
-	@Autowired
-	private RecensioneValidator recensioneValidator;
-	
-	 @GetMapping("/paginaRecensioni")
-	    public String paginaRecensioni(Model model) {
-		  model.addAttribute("recensioni", this.recensioneService.findAll());
-		  
-	       return "paginaRecensioni.html";
-	    }
-	 
-	 @GetMapping("/recensione{id}")
-		public String getRecensione(@PathVariable("id") Long id, Model model) {
-			model.addAttribute("recensione", this.recensioneService.findById(id));
-			
-			return "recensione.html";
-		}
-	
-	 @GetMapping("/formCreaRecensione")
-	 public String formCreaRecensione(Model model) {
-		 
-		 model.addAttribute("recensione", new Recensione());
-		 model.addAttribute("listaLibri", libroService.findAll());
-		 return "formCreaRecensione.html";
-	 }
-	 
-	 
-	 
-	 @PostMapping("/formCreaRecensione")
-	 public String creaRecensione(@Valid @ModelAttribute("recensione")Recensione recensione,
-			                       BindingResult bindingResult,
-			                      @AuthenticationPrincipal UserDetails currentUser
-			                      ) throws IOException {
-		 this.recensioneValidator.validate(recensione, bindingResult);
-		 // Se ci sono errori di validazione, rimanda alla pagina di creazione della recensione
-		    if (bindingResult.hasErrors()) {
-		        return "formCreaRecensione.html";  // Restituisce la vista del form con gli errori
-		    }
-		    // recupero un utente tramite la sua email
-	User utente = userService.getUserByEmail(currentUser.getUsername());
-	 recensioneService.creaRecensione(recensione,utente);
-	 return "index.html";
-	 }
-	 
-	 @GetMapping(value="/admin/gestisciRecensioni")
-		public String gestisciRecensioni(Model model) {
-			model.addAttribute("recensioni", this.recensioneService.findAll());
-			return "admin/gestisciRecensioni.html";
-		}
-	 
-	 @GetMapping(value="/admin/indexRecensione")
-		public String indexRecensione() {
-			return "admin/indexRecensione.html";
-		}
+    @Autowired
+    private RecensioneService recensioneService;
 
-	 
-	 @GetMapping(value = "/admin/cancellaRecensione/{id}")
-		public String cancellaRecensione(@PathVariable("id") Long id, Model model) {
-		this.recensioneService.delete(id);
-			return "admin/indexAdmin.html";
-		}
-	 
-	
+    @Autowired
+    private CredentialsService credentialsService;
+
+    @Autowired
+    private GlobalController globalController;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private LibroService libroService;
+
+    @Autowired
+    private RecensioneValidator recensioneValidator;
+
+    @GetMapping("/paginaRecensioni")
+    public String paginaRecensioni(Model model) {
+        model.addAttribute("recensioni", this.recensioneService.findAll());
+        return "paginaRecensioni.html";
+    }
+
+    @GetMapping("/recensione{id}")
+    public String getRecensione(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("recensione", this.recensioneService.findById(id));
+        return "recensione.html";
+    }
+
+    @GetMapping("/formCreaRecensione")
+    public String formCreaRecensione(Model model) {
+        model.addAttribute("recensione", new Recensione());
+        model.addAttribute("listaLibri", libroService.findAll());
+        return "formCreaRecensione.html";
+    }
+
+    @PostMapping("/formCreaRecensione")
+    public String creaRecensione(@Valid @ModelAttribute("recensione") Recensione recensione,
+                                 BindingResult bindingResult,
+                                 @AuthenticationPrincipal UserDetails currentUser) throws IOException {
+        this.recensioneValidator.validate(recensione, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "formCreaRecensione.html";
+        }
+
+        // ✅ Recupero utente autenticato passando da Credentials
+        Credentials credentials = this.credentialsService.getCredentials(currentUser.getUsername());
+        User utente = credentials.getUser();
+
+        // ✅ Recupero corretto del libro (per evitare problemi di persistence context)
+        Long libroId = recensione.getLibro().getId();
+        Libro libro = libroService.findById(libroId);
+        recensione.setLibro(libro);
+
+        // ✅ Salvataggio recensione associando lo user
+        recensioneService.creaRecensione(recensione, utente);
+
+        return "index.html";
+    }
+
+    @GetMapping("/admin/gestisciRecensioni")
+    public String gestisciRecensioni(Model model) {
+        model.addAttribute("recensioni", this.recensioneService.findAll());
+        return "admin/gestisciRecensioni.html";
+    }
+
+    @GetMapping("/admin/indexRecensione")
+    public String indexRecensione() {
+        return "admin/indexRecensione.html";
+    }
+
+    @GetMapping("/admin/cancellaRecensione/{id}")
+    public String cancellaRecensione(@PathVariable("id") Long id, Model model) {
+        this.recensioneService.delete(id);
+        return "admin/indexAdmin.html";
+    }
 }

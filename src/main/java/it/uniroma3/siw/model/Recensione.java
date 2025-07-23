@@ -13,31 +13,33 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(
-	    name = "recensione", 
-	    uniqueConstraints = @UniqueConstraint(columnNames = {"user_id"}) // limita a una recensione per utente
+	    name = "recensione",
+	    uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "libro_id"})
 	)
 public class Recensione {
-	
-	 @Id
-	    @GeneratedValue(strategy = GenerationType.AUTO)
-	    private Long id;
-	 
-	   @Min(1)
-	   @Max(5)
-	   private Integer voto;
- 
-	   private String testo;
 
-	   @ManyToOne
-	   private Libro libro;
-	   
-	   @OneToOne
-	   @JoinColumn(name = "user_id", referencedColumnName = "id")
-		private User user;
-	   
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
+	@NotNull
+	@Min(1)
+	@Max(5)
+	private Integer voto;
+
+	private String testo;
+
+	@ManyToOne
+	private Libro libro;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
 	public Long getId() {
 		return id;
 	}

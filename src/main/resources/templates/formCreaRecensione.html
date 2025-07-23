@@ -27,12 +27,12 @@
         
         <div class="form-group">
             <label>libri:</label>
-    <select multiple th:field="*{libro}" class="form-control">
-        <option th:each="libro : ${listaLibri}"
-                th:value="${libro.id}"
-                th:text="${libro.titolo}">
-        </option>
-    </select>
+			<select th:field="*{libro.id}" class="form-control">
+			    <option th:each="libro : ${listaLibri}"
+			            th:value="${libro.id}"
+			            th:text="${libro.titolo}">
+			    </option>
+			</select>
     <span th:if="${#fields.hasErrors('libro')}" th:errors="*{libro}"></span>        </div>
             
 	
