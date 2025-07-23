@@ -20,6 +20,7 @@
       <a th:if="${credentials == null}" href="/login">Login</a>
 
       <!-- Logout se autenticato -->
+	  <a th:if="${credentials != null}" th:href="@{'/user/' + ${credentials.id}}">Profilo</a>
       <a th:if="${credentials != null}" th:href="@{/logout}">Logout</a>
     </nav>
   </header>

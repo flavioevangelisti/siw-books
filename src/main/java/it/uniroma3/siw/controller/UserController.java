@@ -40,11 +40,10 @@ public class UserController {
 		model.addAttribute("user", currentUser); 
 		model.addAttribute("credentials", currentCredentials);
 		model.addAttribute("showPasswordModal", showPasswordModal);
-		model.addAttribute("orders", currentUser.getRecensioni());
 		return "user/user.html";
 	}
 	
-	@GetMapping("/user/{id}/editProfile")
+	@GetMapping("/user/{id}/modificaProfilo")
 	public String showFormUpdateUser(@PathVariable("id") Long id, Model model) {
 		if (!verifyId(id))
 			return "redirect:/login";
@@ -53,16 +52,16 @@ public class UserController {
 		Credentials currentCredentials = credentialsService.getCredentials(id);
 		model.addAttribute("user", user);
 		model.addAttribute("credentials", currentCredentials);
-		return "user/formEditUser.html";
+		return "user/formModificaUser.html";
 	}
 
-	@PostMapping("/user/{id}/editProfile")
+	@PostMapping("/user/{id}/modificaProfilo")
 	public String updateUser(@PathVariable("id") Long id, @ModelAttribute @Valid User user,
 			BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("msgError", "Campi non validi");
 			model.addAttribute("user", user);
-			return "user/formEditUser.html";
+			return "user/formModificaUser.html";
 		}
 		if (!verifyId(id))
 			return "redirect:/login";
@@ -70,7 +69,7 @@ public class UserController {
 		return "redirect:/user/" + user.getId();
 	}
 	
-	@PostMapping("/user/{id}/changePassword")
+	@PostMapping("/user/{id}/cambiaPassword")
 	public String updateUserCredentials(@PathVariable("id") Long id,
 	                                    @RequestParam @Valid String confirmPwd,
 	                                    @RequestParam @Valid String newPwd,

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Profilo Utente & Recensioni</title>
+    <link rel="stylesheet" th:href="@{/navbar.css}" />
+    <link rel="stylesheet" th:href="@{/footer.css}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+     Navbar 
+    <header class="navbar">
+        <a class="logo" th:href="@{/}">Siw Books</a>
+        <div class="top-icons">
+            <a th:if="${credentials != null and credentials.role == 'ADMIN'}" th:href="@{/admin}" title="Area Admin">
+            </a>
+            <a th:if="${credentials != null}" th:href="@{/logout}" title="Logout">
+            </a>
+            <a th:unless="${credentials != null}" th:href="@{/login}" title="Login">
+            </a>
+        </div>
+    </header>
+    <div style="height: 80px;"></div>
+
+    <main class="main-content">
+         Sezione Profilo Utente 
+        <section class="user-profile">
+            <h1 th:text="'Benvenuto, ' + ${user.name} + ' ' + ${user.surname}">Benvenuto, Utente</h1>
+
+            <div class="info-card">
+                <h3>Informazioni Utente</h3>
+                <p><strong>Nome:</strong> <span th:text="${user.name}">Mario</span></p>
+                <p><strong>Cognome:</strong> <span th:text="${user.surname}">Rossi</span></p>
+                <p><strong>Email:</strong> <span th:text="${user.email}">mario.rossi@example.com</span></p>
+            </div>
+
+            <div class="info-card" th:if="${credentials != null}">
+                <h3>Credenziali</h3>
+                <p><strong>Username:</strong> <span th:text="${credentials.username}">mrossi</span></p>
+                <p><strong>Ruolo:</strong> <span th:text="${credentials.role}">DEFAULT</span></p>
+            </div>
+
+            <div class="info-card">
+                <a th:href="@{'/user/' + ${user.id} + '/modificaProfilo'}" class="cta-button">Modifica Profilo</a>
+                <a th:href="@{'/user/' + ${user.id} + '?showPasswordModal=true'}" class="cta-button">Cambia Password</a>
+            </div>
+        </section>
+
+ <!--        Sezione Recensioni 
+        <section class="user-reviews">
+            <h2>Le tue Recensioni</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Testo</th>
+                        <th>Voto</th>
+                        <th>Libro</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="recensione : ${user.recensioni}">
+                        <td th:text="${recensione.id}">1</td>
+                        <td th:text="${recensione.testo}">Testo recensione...</td>
+                        <td th:text="${recensione.voto}">5</td>
+                        <td>
+                            <a th:href="@{'/libri/' + ${recensione.libro.id}}"
+                               th:text="${recensione.libro.titolo}">Titolo Libro</a>
+                        </td>
+                        <td>
+                            <a th:href="@{'/recensioni/' + ${recensione.id} + '/modifica'}" class="edit-link">Modifica</a>
+                            <a th:href="@{'/recensioni/' + ${recensione.id} + '/elimina'}" class="delete-link"
+                               onclick="return confirm('Sei sicuro di voler eliminare questa recensione?');">
+                              Elimina
+                            </a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(user.recensioni)}">
+                        <td colspan="5">Non hai ancora scritto recensioni.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a th:href="@{/recensioni/nuova}" class="cta-button">Scrivi una nuova recensione</a>
+        </section>-->
+
+         Modal Cambio Password 
+        <div th:if="${showPasswordModal}" class="modal-overlay">
+            <form class="password-card"
+                  th:action="@{'/user/' + ${user.id} + '/cambiaPassword'}"
+                  method="post">
+                <h2>Cambia Password</h2>
+                <span th:if="${msgError}" class="error-message" th:text="${msgError}">Errore</span>
+
+                <label for="newPwd">Nuova password</label>
+                <input type="password" id="newPwd" name="newPwd"
+                       placeholder="Inserisci la nuova password"
+                       required minlength="8"
+                       pattern="(?=.*[A-Z])(?=.*[\W_]).{8,}"
+                       oninvalid="this.setCustomValidity('La password deve avere almeno 8 caratteri, una maiuscola e un carattere speciale')"
+                       oninput="this.setCustomValidity('')" />
+
+                <label for="confirmPwd">Conferma nuova password</label>
+                <input type="password" id="confirmPwd" name="confirmPwd"
+                       placeholder="Conferma la nuova password"
+                       required minlength="8" />
+
+                <div class="password-btns">
+                    <a th:href="@{'/user/' + ${user.id}}" class="password-btn cancel">Annulla</a>
+                    <button type="submit" class="password-btn submit">Conferma</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Edicola del Faro - Grazie per essere con noi</p>
+        </div>
+    </footer>
+
+</body>
+</html>
