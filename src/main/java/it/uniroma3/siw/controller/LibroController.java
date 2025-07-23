@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Libro;
+import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.AutoreService;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.LibroService;
+import it.uniroma3.siw.service.UserService;
 import it.uniroma3.siw.validator.LibroValidator;
 import jakarta.validation.Valid;
 
@@ -28,6 +30,8 @@ public class LibroController {
 	private LibroService libroService;
 	@Autowired
 	private AutoreService autoreService;
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private CredentialsService credentialsService;
 	@Autowired
@@ -45,10 +49,16 @@ public class LibroController {
 
 	@GetMapping("/libro/{id}")
 	public String getLibro(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("libro", this.libroService.findById(id));
-		model.addAttribute("listaAutori", this.autoreService.findById(id));
+	    Libro libro = libroService.findById(id);
+	    model.addAttribute("libro", libro);
 
-		return "libro.html";
+	    // Recupera utente loggato
+	    User user = userService.getUser();
+	    if (user != null) {
+	        model.addAttribute("credenziali", credentialsService.getCredentials(user.getId()));
+	    }
+
+	    return "libro.html";
 	}
 	
 	@GetMapping("/libro/{id}/recensioni")

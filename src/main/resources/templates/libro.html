@@ -1,40 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>libro</title>
-<link rel="stylesheet" href="/css/libro.css">
+    <meta charset="UTF-8">
+    <title th:text="${libro.titolo}">Libro</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; }
+        h1 { color: #333; }
+        .copertina { max-width: 300px; margin-top: 10px; }
+        .sezione { margin-bottom: 25px; }
+        ul { padding-left: 20px; }
+        .recensione { background: #fff; padding: 10px; border-radius: 5px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
 </head>
 <body>
-<header>
-	<div class="header-links">
-		<a href="/">Home</a> 
-		<a href="/login">Login</a>
-	</div>
-</header>
-	<main>
-		<h1 th:text="${libro.titolo}">Titolo libro</h1>
 
-		<div class="libro-info">
-			<div class="info-item">
-				<label>Anno: <span th:text="${libro.anno}">anno</span></label>
-			</div>
-			
-			<div class="libro-info">
-				<div class="info-item">
-				<label>Autori: <span th:each="autore : ${listaAutori}"
-                th:value="${autore.id}"
-                th:text="${autore.cognome}"></span></label>
-			</div>
-			
-		</div>
+    <h1 th:text="${libro.titolo}">Titolo del Libro</h1>
 
+    <div class="sezione">
+        <strong>Anno di pubblicazione:</strong> <span th:text="${libro.anno}">2025</span>
+    </div>
 
-		<img th:src="'data:image/jpeg;base64,' + ${libro.immagine}"
-			alt="Immagine libro">
+    <div class="sezione" th:if="${libro.immagine != null}">
+        <strong>Copertina:</strong><br>
+        <img th:src="'data:image/jpeg;base64,' + ${libro.immagine}" alt="Copertina libro" class="copertina">
+    </div>
 
+    <div class="sezione" th:if="${libro.autori != null and !libro.autori.isEmpty()}">
+        <strong>Autori:</strong>
+        <ul>
+            <li th:each="a : ${libro.autori}" th:text="${a.nome + ' ' + a.cognome}">Autore</li>
+        </ul>
+    </div>
 
-		<div class="no-libro" th:unless="${libro}">Non esiste</div>
-	</main>
+    <div class="sezione" th:if="${libro.recensioni != null and !libro.recensioni.isEmpty()}">
+        <strong>Recensioni:</strong>
+        <div th:each="r : ${libro.recensioni}" class="recensione">
+            <p th:text="${r.testo}">Testo della recensione</p>
+            <small th:text="'Valutazione: ' + ${r.valutazione} + '/5'">Valutazione</small>
+        </div>
+    </div>
+
+    <div class="sezione" th:if="${credenziali != null}">
+        <strong>Utente loggato:</strong>
+        <span th:text="${credenziali.username}">username</span>
+    </div>
+
 </body>
 </html>

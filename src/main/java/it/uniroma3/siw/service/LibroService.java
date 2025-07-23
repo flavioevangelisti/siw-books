@@ -32,7 +32,7 @@ public class LibroService {
 		return libroRepository.existsByTitoloAndAnno(titolo, anno);
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public Libro findById(Long id) {
 		return libroRepository.findById(id).get();
 	}
