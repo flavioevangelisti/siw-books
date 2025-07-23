@@ -67,37 +67,35 @@ public class RecensioneController {
 
 	@PostMapping("/formCreaRecensione")
 	public String creaRecensione(@Valid @ModelAttribute("recensione") Recensione recensione,
-			BindingResult bindingResult,
-			@AuthenticationPrincipal UserDetails currentUser,
-			Model model) throws IOException {
-		this.recensioneValidator.validate(recensione, bindingResult);
-		if (bindingResult.hasErrors()) {
-			model.addAttribute("listaLibri", libroService.findAll());
-			return "formCreaRecensione.html";
-		}
+	        BindingResult bindingResult,
+	        @AuthenticationPrincipal UserDetails currentUser,
+	        Model model) throws IOException {
+	    this.recensioneValidator.validate(recensione, bindingResult);
+	    if (bindingResult.hasErrors()) {
+	        model.addAttribute("listaLibri", libroService.findAll());
+	        return "formCreaRecensione.html";
+	    }
 
-		// Recupero utente autenticato passando da Credentials
-		Credentials credentials = this.credentialsService.getCredentials(currentUser.getUsername());
-		User utente = credentials.getUser();
+	    Credentials credentials = this.credentialsService.getCredentials(currentUser.getUsername());
+	    User utente = credentials.getUser();
 
-		// Recupero corretto del libro (per evitare problemi di persistence context)
-		Long libroId = recensione.getLibro().getId();
-		Libro libro = libroService.findById(libroId);
-		recensione.setLibro(libro);
+	    Long libroId = recensione.getLibro().getId();
+	    Libro libro = libroService.findById(libroId);
+	    recensione.setLibro(libro);
 
-		// Controllo se l'utente ha già recensito questo libro
-		boolean recensioneEsistente = recensioneService.existsByUserAndLibro(utente, libro);
-		if (recensioneEsistente) {
-			bindingResult.rejectValue("libro", "error.recensione", "Hai già recensito questo libro");
-			model.addAttribute("listaLibri", libroService.findAll());
-			return "formCreaRecensione.html";
-		}
+	    boolean recensioneEsistente = recensioneService.existsByUserAndLibro(utente, libro);
+	    if (recensioneEsistente) {
+	        bindingResult.rejectValue("libro", "error.recensione", "Hai già recensito questo libro");
+	        model.addAttribute("listaLibri", libroService.findAll());
+	        return "formCreaRecensione.html";
+	    }
 
-		// Salvataggio recensione associando lo user
-		recensioneService.creaRecensione(recensione, utente);
+	    // Non serve mettere recensione.setRecensore(utente) qui, lo fa già il service
+	    recensioneService.creaRecensione(recensione, utente);
 
-		return "index.html";
+	    return "index.html";
 	}
+
 
 
 	@GetMapping("/admin/gestisciRecensioni")
