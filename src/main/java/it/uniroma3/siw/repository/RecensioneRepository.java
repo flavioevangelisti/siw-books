@@ -22,4 +22,6 @@ public interface RecensioneRepository extends CrudRepository<Recensione,Long>{
     public Recensione findByUser(User utente);
 
 	public boolean existsByUser(User user);
+	
+	public  boolean existsByUserAndLibro(User user, Libro libro);
 }

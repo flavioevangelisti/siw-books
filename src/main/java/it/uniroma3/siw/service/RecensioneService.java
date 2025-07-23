@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.uniroma3.siw.model.Libro;
 import it.uniroma3.siw.model.Recensione;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.RecensioneRepository;
@@ -25,6 +26,10 @@ public class RecensioneService {
 
 	public boolean existsByUser(User user) {
 		return  recensioneRepository.existsByUser(user);
+	}
+	
+	public boolean existsByUserAndLibro(User user, Libro libro) {
+	    return recensioneRepository.existsByUserAndLibro(user, libro);
 	}
 
 
