@@ -1,78 +1,72 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Libri</title>
-  <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="css/navbar.css" />
-  <link rel="stylesheet" href="css/footer.css" />
-  <link rel="stylesheet" href="/css/paginaLibri.css" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway&display=swap"
-    rel="stylesheet"
-  />
+  <link rel="stylesheet" href="/style.css?version=2" />
+  <link rel="stylesheet" th:href="@{css/navbar.css}" href="/navbar.css" />
+  <link rel="stylesheet" th:href="@{css/footer.css}" href="/footer.css" />
+  <link rel="stylesheet" th:href="@{/css/paginaLibri.css}" href="/css/paginaLibri.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body style="min-height:100vh;display:flex;flex-direction:column;">
+
   <!-- Navbar -->
   <header class="navbar">
-    <a class="logo" href="/">Siw Books</a>
+    <a class="logo" th:href="@{/}">Siw Books</a>
     <nav class="nav-links">
-	  <a href="paginaRecensioni">Recensioni</a>
-      <a href="/paginaLibri">Libri</a>
-      <a href="/paginaAutori">Gli autori</a>
-      <a href="/formRegistrazione">Registrazione</a>
-      <a href="/login">Login</a>
+      <a th:href="@{/paginaRecensioni}">Recensioni</a>
+      <a th:href="@{/paginaLibri}">Libri</a>
+      <a th:href="@{/paginaAutori}">Gli autori</a>
+      <a th:if="${credentials == null}" href="/login">Login</a>
+      <a th:if="${credentials != null}" th:href="@{/logout}">Logout</a>
     </nav>
   </header>
 
-  <!-- Contenuto -->
-  <main>
-    <h1 class="pagina-titolo">I nostri libri</h1>
+  <main style="flex:1 0 auto;">
+    <h1 style="text-align:center; font-size:2.4rem; margin-top:20px;">I nostri libri</h1>
 
     <div class="libri-container" th:if="${not libri.isEmpty()}">
       <div th:each="libro : ${libri}" class="libro-card">
-        <a
-          th:href="@{'/libro/' + ${libro.id}}"
-          class="libro-link"
-        >
-          <img
-            class="libro-img"
-            th:src="'data:image/jpeg;base64,' + ${libro.immagine}"
-            alt="Copertina libro"
-          />
+
+        <a th:href="@{'/libro/' + ${libro.id}}" style="text-decoration:none;color:inherit;">
+          <img class="libro-img" th:src="'data:image/jpeg;base64,' + ${libro.immagine}" alt="Copertina libro" />
           <div class="libro-titolo" th:text="${libro.titolo}">Titolo Libro</div>
-          <div
-            class="libro-autore"
-            th:text="${libro.autore.nome + ' ' + libro.autore.cognome}"
-          >
-            Autore
-          </div>
         </a>
-        <form
-          th:action="@{/formCreaRecensione}"
-          method="get"
-          class="form-aggiungi-recensione"
-        >
+
+        <!-- Autori -->
+        <div class="libro-autore">
+          <strong>Autore/i:</strong>
+          <span th:each="autore, stat : ${libro.autori}"
+                th:text="${autore.nome} + ' ' + ${autore.cognome} + ${stat.last ? '' : ', '}">
+            Nome Autore
+          </span>
+        </div>
+
+        <!-- Bottone Aggiungi recensione -->
+        <form th:action="@{/formCreaRecensione}" method="get" style="width:100%;">
           <input type="hidden" name="idLibro" th:value="${libro.id}" />
-          <button class="btn-aggiungi-recensione" type="submit">
-            Aggiungi recensione
-          </button>
+          <button class="btn-aggiungi-recensione" type="submit">Aggiungi recensione</button>
         </form>
+
+        <!-- Bottone Visualizza recensioni -->
+        <a th:href="@{'/libro/' + ${libro.id} + '/recensioni'}" class="btn-visualizza-recensioni">
+          Visualizza recensioni
+        </a>
+
       </div>
     </div>
 
-    <div
-      th:if="${libri == null || libri.isEmpty()}"
-      class="no-libri-msg"
-    >
-      <span>Non ci sono libri nel sistema</span>
+    <div th:if="${libri == null || libri.isEmpty()}" style="display:flex;justify-content:center;align-items:center;min-height:40vh;">
+      <span style="font-size:1.8rem; font-weight:700;">Non ci sono libri nel sistema</span>
     </div>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
-    <p>SIW BOOKS &copy; 2025</p>
+    <div class="footer-content">
+      <p>SIW BOOKS &copy; 2025</p>
+    </div>
   </footer>
 </body>
 </html>

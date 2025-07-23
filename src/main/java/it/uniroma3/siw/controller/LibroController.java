@@ -1,4 +1,3 @@
-
 package it.uniroma3.siw.controller;
 
 import java.io.IOException;
@@ -30,7 +29,7 @@ import jakarta.validation.Valid;
 
 @Controller
 public class LibroController {
-	
+
 	@Autowired
 	private LibroService libroService;
 	@Autowired
@@ -41,74 +40,86 @@ public class LibroController {
 	private LibroValidator libroValidator;
 	@Autowired
 	private GlobalController globalController;
+
+	@GetMapping("/paginaLibri")
+	public String paginaLibri(Model model) {
+		model.addAttribute("libri", this.libroService.findAll());
+		model.addAttribute("listaAutori", this.autoreService.findAll());
+
+		return "paginaLibri.html";
+	}
+
+	@GetMapping("/libro{id}")
+	public String getLibro(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("libro", this.libroService.findById(id));
+		model.addAttribute("listaAutori", this.autoreService.findById(id));
+
+		return "libro.html";
+	}
 	
-	 @GetMapping("/paginaLibri")
-	    public String paginaLibri(Model model) {
-		  model.addAttribute("libri", this.libroService.findAll());
-		   
-	       return "paginaLibri.html";
+	@GetMapping("/libro/{id}/recensioni")
+	public String getRecensioniLibro(@PathVariable("id") Long id, Model model) {
+	    Libro libro = this.libroService.findById(id);
+	    if (libro == null) {
+	        return "redirect:/paginaLibri"; // oppure una pagina di errore
 	    }
+	    model.addAttribute("libro", libro);
+	    model.addAttribute("recensioni", libro.getRecensioni());
+	    return "recensioniLibro.html"; // dovrai creare questo template
+	}
 
-	 @GetMapping("/libro{id}")
-		public String getLibro(@PathVariable("id") Long id, Model model) {
-			model.addAttribute("libro", this.libroService.findById(id));
-			model.addAttribute("listaAutori", this.autoreService.findById(id));
-			
-			return "libro.html";
-		}
+	@GetMapping(value="/admin/indexLibro")
+	public String indexLibro() {
+		return "admin/indexLibro.html";
+	}
 
-	 @GetMapping(value="/admin/indexLibro")
-		public String indexLibro() {
-			return "admin/indexLibro.html";
-		}
-	 
-	 @GetMapping("/admin/formCreaLibro")
-		public String formCreaLibro(Model model) {
-			model.addAttribute("libro", new Libro());
-			model.addAttribute("listaAutori",autoreService.findAll());
-			return "admin/formCreaLibro.html";
-		}
-	 
-	 @PostMapping("/admin/formCreaLibro")
-	 public String creaLibro(@Valid @ModelAttribute("libro") Libro libro, 
-             BindingResult bindingResult,
-             @RequestParam("imageFile") MultipartFile imageFile, 
-             Model model) throws IOException {
-      this.libroValidator.validate(libro, bindingResult);
-      if (!bindingResult.hasErrors()) {
-       this.libroService.creaLibro(libro, bindingResult, imageFile);
-       return "/admin/indexAdmin";
-         } else {
-         return "admin/formCreaLibro";
-          }
-}
-	 
-	 @GetMapping(value="/admin/formModificaLibro/{id}")
-		public String formModificaLibro(@PathVariable("id") Long id, Model model) {
-			model.addAttribute("libro", this.libroService.findById(id));
-			return "admin/formModificaLibro.html";
-		}
-	 
-	 @GetMapping(value="/admin/gestisciLibri")
-		public String gestisciLibri(Model model) {
-			model.addAttribute("libri", this.libroService.findAll());
-			return "admin/gestisciLibri.html";
-		}
+	@GetMapping("/admin/formCreaLibro")
+	public String formCreaLibro(Model model) {
+		model.addAttribute("libro", new Libro());
+		model.addAttribute("listaAutori",autoreService.findAll());
+		return "admin/formCreaLibro.html";
+	}
 
-	 @PostMapping("/admin/formModificaLibro/{id}")
-	    public String modificalibro(@RequestParam("id") Long id,
-				@RequestParam("nuovoTitolo") String nuovoTitolo,
-				@RequestParam("nuovoAnno") Integer nuovoAnno,
-				
-			
-			 Model model) {
-	        this.libroService.modifica(id,nuovoTitolo,nuovoAnno);
-	        return "/admin/indexAdmin";
-	    }
-	 
-	 @GetMapping(value = "/admin/cancellaLibro/{id}")
-		public String cancellaLibro(@PathVariable("id") Long id, Model model) {
-			this.libroService.delete(id);
-			return "admin/indexAdmin.html";
+	@PostMapping("/admin/formCreaLibro")
+	public String creaLibro(@Valid @ModelAttribute("libro") Libro libro, 
+			BindingResult bindingResult,
+			@RequestParam("imageFile") MultipartFile imageFile, 
+			Model model) throws IOException {
+		this.libroValidator.validate(libro, bindingResult);
+		if (!bindingResult.hasErrors()) {
+			this.libroService.creaLibro(libro, bindingResult, imageFile);
+			return "/admin/indexAdmin";
+		} else {
+			return "admin/formCreaLibro";
 		}
+	}
+
+	@GetMapping(value="/admin/formModificaLibro/{id}")
+	public String formModificaLibro(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("libro", this.libroService.findById(id));
+		return "admin/formModificaLibro.html";
+	}
+
+	@GetMapping(value="/admin/gestisciLibri")
+	public String gestisciLibri(Model model) {
+		model.addAttribute("libri", this.libroService.findAll());
+		return "admin/gestisciLibri.html";
+	}
+
+	@PostMapping("/admin/formModificaLibro/{id}")
+	public String modificalibro(@RequestParam("id") Long id,
+			@RequestParam("nuovoTitolo") String nuovoTitolo,
+			@RequestParam("nuovoAnno") Integer nuovoAnno,
+
+
+			Model model) {
+		this.libroService.modifica(id,nuovoTitolo,nuovoAnno);
+		return "/admin/indexAdmin";
+	}
+
+	@GetMapping(value = "/admin/cancellaLibro/{id}")
+	public String cancellaLibro(@PathVariable("id") Long id, Model model) {
+		this.libroService.delete(id);
+		return "admin/indexAdmin.html";
+	}
 }

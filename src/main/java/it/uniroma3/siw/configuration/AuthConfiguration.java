@@ -46,7 +46,7 @@ public class AuthConfiguration  {
 		    .authorizeHttpRequests()
 		    // .requestMatchers("/**").permitAll()
 		    // chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
-		    .requestMatchers(HttpMethod.GET,"/","/index","/libro{id}","/autore{id}","/paginaAutori/**","/paginaRecensioni/**","/recensione{id}","/paginaLibri/**","/formRegistrazione","/formLogin","/css/**", "/immagini/**", "favicon.ico").permitAll()
+		    .requestMatchers(HttpMethod.GET,"/","/index","/libro{id}","/autore{id}","/paginaAutori/**","/paginaRecensioni/**","/recensione{id}","/paginaLibri", "/paginaLibri/**", "/formRegistrazione/","/formLogin","/css/**", "/immagini/**", "favicon.ico").permitAll()
 		    // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
 		    .requestMatchers(HttpMethod.POST,"/registrazione", "/login").permitAll()
 		    .requestMatchers(HttpMethod.GET, "/formCreaRecensione").authenticated() // SOLO GLI UTENTI AUTENTICATI possono inviare POST a /formCreaRecensione
