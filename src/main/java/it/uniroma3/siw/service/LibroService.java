@@ -2,6 +2,7 @@ package it.uniroma3.siw.service;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.model.Autore;
 import it.uniroma3.siw.model.Libro;
 
 import it.uniroma3.siw.repository.LibroRepository;
@@ -71,4 +73,8 @@ public class LibroService {
 		libroRepository.delete(libro);
 
 	}
+
+	 public List<Libro> findByAutore(Autore autore) {
+	        return libroRepository.findByAutori(autore);
+	    }
 }

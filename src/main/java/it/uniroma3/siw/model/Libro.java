@@ -3,14 +3,12 @@ package it.uniroma3.siw.model;
 import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
@@ -27,15 +25,13 @@ public class Libro {
 		private String titolo;
 	    @NotNull
 	    private Integer anno;
-	    @Lob
-		@Basic(fetch = FetchType.LAZY)
-		@Column(columnDefinition = "TEXT")
+	    @Column(length = 1000000)
 		private String immagine;
 	    
 	    @ManyToMany
 	    private List<Autore> autori;
 	    
-	    @OneToMany(mappedBy="libro")
+	    @OneToMany(mappedBy = "libro", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	    private List<Recensione> recensioni;
 	    
 		public Long getId() {

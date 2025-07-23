@@ -1,30 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
-<meta charset="ISO-8859-1">
-<title>Autori</title>
-<link rel="stylesheet" href="/css/paginaAutori.css" />
+  <meta charset="UTF-8" />
+  <title>Autori</title>
+  <link rel="stylesheet" href="/style.css?version=2" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/footer.css" />
+  <link rel="stylesheet" href="/css/paginaLibri.css" /> <!-- usa lo stesso dei libri -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway&display=swap" rel="stylesheet" />
 </head>
-<body>
-<header>
-  
-	<div class="header-links">
-           <a href="/">Home</a>
-            <a href="/logout">Logout</a>
-        </div>
-    </header>
-    
- <h1>Autori</h1>
-<!--  <span th:text="'Numero autori:' + ${size}"></span> -->
-    <div class="container">
-        <div th:if="${autori == null || autori.isEmpty()}">Non ci sono autori nel sistema</div>
-        <div th:each="autore : ${autori}" class="autore-item">
-            <a th:href="@{'/autore' + ${autore.id}}" th:text="${autore.nome}"></a>
-            <a th:href="@{'/autore' + ${autore.id}}" th:text="${autore.cognome}"></a>  
-<!--             <a th:href="@{'/autore' + ${autore.id}}" th:text="${autore.dataNascita}"></a>   -->
-<!--              <a th:href="@{'/autore' + ${autore.id}}" th:text="${autore.dataMorte}"></a> -->
-<!--              <a th:href="@{'/autore' + ${autore.id}}" th:text="${autore.nazionalita}"></a>    -->
-            <img th:src="'data:image/jpeg;base64,' + ${autore.immagine}" alt="Immagine autore">
-        </div>
+<body style="min-height:100vh;display:flex;flex-direction:column;">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <a class="logo" th:href="@{/}">Siw Books</a>
+    <nav class="nav-links">
+      <a th:href="@{/paginaRecensioni}">Recensioni</a>
+      <a th:href="@{/paginaLibri}">Libri</a>
+      <a th:href="@{/paginaAutori}">Gli autori</a>
+      <a th:if="${credentials == null}" href="/login">Login</a>
+      <a th:if="${credentials != null}" th:href="@{/logout}">Logout</a>
+    </nav>
+  </header>
+
+  <main style="flex:1 0 auto;">
+    <h1 class="pagina-titolo">I nostri autori</h1>
+
+    <div class="libri-container" th:if="${autori != null and !autori.isEmpty()}">
+      <div th:each="autore : ${autori}" class="libro-card">
+
+        <a th:href="@{'/autore/' + ${autore.id}}" style="text-decoration:none;color:inherit;">
+          <img class="libro-img" th:src="'data:image/jpeg;base64,' + ${autore.immagine}" alt="Immagine autore" />
+          <div class="libro-titolo" th:text="${autore.nome} + ' ' + ${autore.cognome}">Nome Cognome</div>
+        </a>
+
+        <a th:href="@{'/autore/' + ${autore.id} + '/libri'}" class="btn-visualizza-recensioni" style="margin-top:auto;">
+          Consulta opere
+        </a>
+
+      </div>
+    </div>
+
+    <div th:if="${autori == null || autori.isEmpty()}" style="display:flex;justify-content:center;align-items:center;min-height:40vh;">
+      <span style="font-size:1.8rem; font-weight:700;">Non ci sono autori nel sistema</span>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>SIW BOOKS &copy; 2025</p>
+    </div>
+  </footer>
+
 </body>
 </html>

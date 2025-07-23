@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <title>Libri</title>
   <link rel="stylesheet" href="/style.css?version=2" />
-  <link rel="stylesheet" th:href="@{css/navbar.css}" href="/navbar.css" />
-  <link rel="stylesheet" th:href="@{css/footer.css}" href="/footer.css" />
+  <link rel="stylesheet" th:href="@{/css/navbar.css}" href="/navbar.css" />
+  <link rel="stylesheet" th:href="@{/css/footer.css}" href="/footer.css" />
   <link rel="stylesheet" th:href="@{/css/paginaLibri.css}" href="/css/paginaLibri.css" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway&display=swap" rel="stylesheet">
 </head>
@@ -25,7 +25,16 @@
   </header>
 
   <main style="flex:1 0 auto;">
-    <h1 style="text-align:center; font-size:2.4rem; margin-top:20px;">I nostri libri</h1>
+
+    <h1 style="text-align:center; font-size:2.4rem; margin-top:20px;">
+      <span th:if="${autoreFiltrato != null}" 
+            th:text="'Libri di ' + ${autoreFiltrato.nome} + ' ' + ${autoreFiltrato.cognome}">
+        Libri filtrati
+      </span>
+      <span th:if="${autoreFiltrato == null}">
+        I nostri libri
+      </span>
+    </h1>
 
     <div class="libri-container" th:if="${not libri.isEmpty()}">
       <div th:each="libro : ${libri}" class="libro-card">
