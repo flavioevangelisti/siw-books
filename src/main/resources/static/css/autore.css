@@ -57,7 +57,7 @@ h1 {
 }
 
 /* Immagine autore */
-div[th\\:if*="autore.immagine"] img {
+.autore-img {
   display: block;
   margin: 0 auto;
   width: 240px;
@@ -129,7 +129,7 @@ div[th\\:if*="autore.immagine"] img {
     font-size: 2rem;
   }
 
-  div[th\\:if*="autore.immagine"] img {
+  .autore-img {
     width: 180px;
     height: 240px;
   }
