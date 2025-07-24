@@ -2,29 +2,30 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
-  <title>Siw Pinacoteca Login</title>
-  <link rel="stylesheet" href="/css/stilelogin.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Siw Books - Login</title>
+  <link rel="stylesheet" th:href="@{/css/navbar.css}" href="/navbar.css" />
+  <link rel="stylesheet" th:href="@{/css/footer.css}" href="/footer.css" />
+  <link rel="stylesheet" th:href="@{/css/login.css}" href="/login.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <div class="background">
-    <div class="shape"></div>
-    <div class="shape"></div>
-  </div>
 
-  <form th:action="@{/login}" method="POST">
+  <form class="login-card" th:action="@{/login}" method="post">
     <h3>Login</h3>
 
     <label for="username">Username</label>
-    <input name="username" type="text" required />
+    <input id="username" name="username" type="text" required autocomplete="username" />
 
     <label for="password">Password</label>
-    <input name="password" type="password" required />
+    <input id="password" name="password" type="password" required autocomplete="current-password" />
 
-    <span th:if="${param.error != null}">Username o password errati</span>
+    <span class="error-message" th:if="${param.error != null}">Username o password errati</span>
 
-    <button type="submit">Login</button>
+    <button type="submit">Accedi</button>
 
-    <p>Non hai ancora un profilo? <a href="formRegistrazione">Registrati</a></p>
+    <p>Non hai ancora un account? <a th:href="@{/formRegistrazione}">Registrati qui</a></p>
   </form>
+
 </body>
 </html>

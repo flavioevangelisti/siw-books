@@ -44,22 +44,26 @@ public class LibroController {
 	public String paginaLibri(Model model) {
 		model.addAttribute("libri", this.libroService.findAll());
 		model.addAttribute("listaAutori", this.autoreService.findAll());
+		User user = userService.getUser();
+	    if (user != null) {
+	        model.addAttribute("credentials", credentialsService.getCredentials(user.getId()));
+	    }
 
 		return "paginaLibri.html";
 	}
 
-	@GetMapping("/autore/{id}")
+	@GetMapping("/libro/{id}")
 	public String getAutore(@PathVariable("id") Long id, Model model) {
-	    Autore autore = autoreService.findById(id);
-	    model.addAttribute("autore", autore);
+	    Libro libro = libroService.findById(id);
+	    model.addAttribute("libro", libro);
 
 	    // Recupera utente loggato
 	    User user = userService.getUser();
 	    if (user != null) {
-	        model.addAttribute("credenziali", credentialsService.getCredentials(user.getId()));
+	        model.addAttribute("credentials", credentialsService.getCredentials(user.getId()));
 	    }
-
-	    return "autore.html";
+	    
+	    return "libro.html";
 	}
 
 	

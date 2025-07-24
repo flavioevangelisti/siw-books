@@ -17,8 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Autore;
 import it.uniroma3.siw.model.Libro;
+import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.AutoreService;
+import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.LibroService;
+import it.uniroma3.siw.service.UserService;
 import it.uniroma3.siw.validator.AutoreValidator;
 import jakarta.validation.Valid;
 
@@ -32,6 +35,10 @@ public class AutoreController {
 	private LibroService libroService;
 	@Autowired
 	private AutoreValidator autoreValidator;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private CredentialsService credentialsService;
 
 	@GetMapping("/paginaAutori")
 	public String paginaAutori(Model model) {
@@ -40,11 +47,18 @@ public class AutoreController {
 		return "paginaAutori.html"; 
 	}
 
-	@GetMapping("/autore{id}")
+	@GetMapping("/autore/{id}")
 	public String getAutore(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("autore", this.autoreService.findById(id));
+		Autore autore = autoreService.findById(id);
+	    model.addAttribute("autore", autore);
 
-		return "autore.html";
+	    // Recupera utente loggato
+	    User user = userService.getUser();
+	    if (user != null) {
+	        model.addAttribute("credentials", credentialsService.getCredentials(user.getId()));
+	    }
+
+	    return "autore.html";
 	}
 
 	@GetMapping(value="/admin/indexAutore")

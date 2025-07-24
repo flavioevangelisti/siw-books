@@ -14,6 +14,8 @@
     <header class="navbar">
         <a class="logo" th:href="@{/}">Siw Books</a>
         <div class="top-icons">
+			<a href="paginaLibri">Libri</a>
+			      <a href="paginaAutori">Gli autori</a>
 			<a th:if="${credentials != null and credentials.role == 'ADMIN'}" th:href="@{/admin}" title="Area Admin">Area Admin</a>
             </a>
             <a th:if="${credentials != null}" th:href="@{/logout}" title="Logout">Logout</a>

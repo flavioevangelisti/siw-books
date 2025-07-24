@@ -1,49 +1,70 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${libro.titolo}">Libro</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; }
-        h1 { color: #333; }
-        .copertina { max-width: 300px; margin-top: 10px; }
-        .sezione { margin-bottom: 25px; }
-        ul { padding-left: 20px; }
-        .recensione { background: #fff; padding: 10px; border-radius: 5px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-    </style>
+    <title th:text="${libro.titolo}">Dettaglio Libro</title>
+    <link rel="stylesheet" href="/style.css?version=2" />
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" href="/navbar.css" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" href="/footer.css" />
+    <link rel="stylesheet" th:href="@{/css/libro.css}" href="/css/libro.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-    <h1 th:text="${libro.titolo}">Titolo del Libro</h1>
+    <!-- Navbar -->
+    <header class="navbar">
+        <a class="logo" th:href="@{/}">Siw Books</a>
+        <nav class="nav-links">
+            <a href="/paginaLibri">Libri</a>
+            <a href="/paginaAutori">Gli autori</a>
+            <a th:if="${credentials == null}" href="/login">Login</a>
+            <a th:if="${credentials != null}" th:href="@{'/user/' + ${credentials.id}}">Profilo</a>
+        </nav>
+    </header>
 
-    <div class="sezione">
-        <strong>Anno di pubblicazione:</strong> <span th:text="${libro.anno}">2025</span>
-    </div>
+    <main class="main-content">
+        <h1 class="pagina-titolo" th:text="${libro.titolo}">Titolo del Libro</h1>
 
-    <div class="sezione" th:if="${libro.immagine != null}">
-        <strong>Copertina:</strong><br>
-        <img th:src="'data:image/jpeg;base64,' + ${libro.immagine}" alt="Copertina libro" class="copertina">
-    </div>
+        <div class="libro-dettaglio-card">
+            <div class="libro-dettaglio-img" th:if="${libro.immagine != null}">
+                <img th:src="'data:image/jpeg;base64,' + ${libro.immagine}" alt="Copertina libro" />
+            </div>
 
-    <div class="sezione" th:if="${libro.autori != null and !libro.autori.isEmpty()}">
-        <strong>Autori:</strong>
-        <ul>
-            <li th:each="a : ${libro.autori}" th:text="${a.nome + ' ' + a.cognome}">Autore</li>
-        </ul>
-    </div>
+            <div class="libro-info">
+                <p><strong>Anno di pubblicazione:</strong> <span th:text="${libro.anno}">2025</span></p>
 
-    <div class="sezione" th:if="${libro.recensioni != null and !libro.recensioni.isEmpty()}">
-        <strong>Recensioni:</strong>
-        <div th:each="r : ${libro.recensioni}" class="recensione">
-            <p th:text="${r.testo}">Testo della recensione</p>
-            <small th:text="'Valutazione: ' + ${r.valutazione} + '/5'">Valutazione</small>
+                <div th:if="${libro.autori != null and !libro.autori.isEmpty()}">
+                    <p><strong>Autori:</strong></p>
+                    <ul class="autori-lista">
+                        <li th:each="a : ${libro.autori}" th:text="${a.nome + ' ' + a.cognome}">Autore</li>
+                    </ul>
+                </div>
+
+                <div th:if="${libro.recensioni != null and !libro.recensioni.isEmpty()}">
+                    <p><strong>Recensioni:</strong></p>
+                    <div class="recensioni-box">
+                        <div class="recensione" th:each="r : ${libro.recensioni}">
+                            <p th:text="${r.testo}">Testo recensione</p>
+                            <small th:text="'Valutazione: ' + ${r.valutazione} + '/5'">Valutazione</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${credentials != null}">
+                    <p><strong>Utente loggato:</strong> <span th:text="${credenziali.username}">username</span></p>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
 
-    <div class="sezione" th:if="${credenziali != null}">
-        <strong>Utente loggato:</strong>
-        <span th:text="${credenziali.username}">username</span>
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>SIW BOOKS &copy; 2025</p>
+        </div>
+    </footer>
 
 </body>
 </html>
+

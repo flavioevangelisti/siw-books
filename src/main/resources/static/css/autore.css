@@ -1,134 +1,141 @@
-@charset "ISO-8859-1";
-
-
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background-color:#FDF5E6;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: white;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
 }
 
-header {
-     background-color:#2E8B57; /* Sfondo nero traslucido */
-            color: white; /* Testo bianco per contrastare il background nero */
-            height: 1.3em; /* Aumenta l'altezza dell'header */
-            margin-bottom: 0.5em;
-            padding: 1.3em; /* Aumenta il padding per un aspetto pi� grande */
-            text-align: right; 
-            display: flex;
-            align-items: center;
-            justify-content: space-between; /* Distribuisce lo spazio tra gli elementi */
-        }
-
-        .header-links {
-            display: flex;
-            gap: 6em; /* Spazio tra i link */
-            margin-left: 60em;
-            font-family: 'Dmsans', sans-serif; /* Cambia il font dei link */
-            font-style: italic;
-        }
-        .header-links2 {
-            display: flex;
-            gap: 6em; /* Spazio tra i link */
-            margin-left: 34em;
-            font-family: 'Dmsans', sans-serif; /* Cambia il font dei link */
-            font-style: italic;
-        }
-         .header-links3 {
-            display: flex;
-            gap: 6em; /* Spazio tra i link */
-            margin-left: 43em;
-            font-family: 'Dmsans', sans-serif; /* Cambia il font dei link */
-            font-style: italic;
-        }
-        .header-links4 {
-            display: flex;
-            gap: 4em; /* Spazio tra i link */
-            margin-left: 35em;
-            font-family: 'Dmsans', sans-serif; /* Cambia il font dei link */
-            font-style: italic;
-        }
-
-        header a { 
-            text-decoration: none; 
-            color: rgb(0, 0, 0); /* Cambia il colore del testo dei link per adattarsi al nuovo background */
-            font-size: 3em; /* Puoi modificare la dimensione del font se necessario */
-            font-size: 1.2em; /* Modifica la dimensione del font dei link */
-        }
-        .header-links a:hover {
-    color: red;
-}
-   .header-links2 a:hover {
-    color:red;
+html, body {
+  height: 100%;
+  background-color: #fdfcf6; /* panna */
+  color: #1f4033; /* verde scuro */
+  display: flex;
+  flex-direction: column;
 }
 
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
-main {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: silver;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.main-content {
+  flex: 1;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 96px 24px 48px;
 }
 
 h1 {
-    text-align: center;
-    font-size: 36px;
-    color: #2E8B57;
-    margin-bottom: 20px;
+  font-size: 2.4rem;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #1f4033;
 }
 
+/* Card stile simile al libro */
 .autore-info {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.info-item {
-    display: flex;
-    justify-content: space-between;
-    font-size: 18px;
-    padding: 10px;
-    background-color: #000000;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+  background-color: white;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  max-width: 600px;
+  margin: 0 auto 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .info-item label {
-    font-weight: bold;
-    color: #ffffff;
+  font-weight: 600;
+  font-size: 1.1rem;
 }
 
+.info-item span {
+  font-weight: 400;
+  margin-left: 6px;
+}
+
+/* Immagine autore */
+div[th\\:if*="autore.immagine"] img {
+  display: block;
+  margin: 0 auto;
+  width: 240px;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  background-color: #f4f4f4;
+}
+
+/* Messaggio "non esiste" */
 .no-autore {
-    text-align: center;
-    font-size: 20px;
-    color: #d9534f;
-    margin-top: 20px;
-}
-a{
-	color: white;
-}
-img{
-	 display: flex;
-    justify-content: space-between;
-     max-width: 60%;
-	margin-left:27%;
-	margin-top:3%;
-}
-   .immagine {
-    position: absolute;
-    top: -23px;
-    left: -38%;
-    overflow: hidden; /* Assicura che l'immagine non fuoriesca dai bordi dell'header */
+  max-width: 600px;
+  margin: 40px auto;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+  font-style: italic;
 }
 
-.immagine img {
-    max-width: 19%; /* Imposta una larghezza massima, ad esempio 100px */
-    height: auto; /* Lascia che l'altezza si adatti alla larghezza mantenendo le proporzioni */
+/* Navbar */
+.navbar {
+  background-color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #1f4033;
+  text-decoration: none;
+}
+
+.nav-links a {
+  margin-left: 24px;
+  color: #1f4033;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #3f7d5f; /* un verde leggermente più chiaro */
+}
+
+/* Footer */
+.footer {
+  background-color: #1f4033;
+  color: #fdfcf6;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0.95rem;
+  margin-top: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .autore-info {
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  div[th\\:if*="autore.immagine"] img {
+    width: 180px;
+    height: 240px;
+  }
+
+  .nav-links a {
+    margin-left: 16px;
+    font-size: 0.9rem;
+  }
 }

@@ -1,41 +1,61 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Autore</title>
-<link rel="stylesheet" href="/css/autore.css">
+    <meta charset="UTF-8" />
+    <title th:text="${autore.nome} + ' ' + ${autore.cognome}">Autore</title>
+    <link rel="stylesheet" th:href="@{/css/autore.css}" />
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-<div class="header-links">
-		<a href="/" th:href="@{/}">Home</a> 
-		<a href="/login" th:href="@{/login}">Login</a>
-</div>
+    <!-- Navbar -->
+    <header class="navbar">
+        <a class="logo" th:href="@{/}">Siw Books</a>
+        <nav class="nav-links">
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/paginaAutori}">Gli autori</a>
+            <a th:href="@{/paginaLibri}">Libri</a>
+        </nav>
+    </header>
 
-<main>
-		<h1 th:text="${autore.nome}">Nome autore</h1>
+    <main class="main-content">
+        <div th:if="${autore != null}">
+            <h1 th:text="${autore.nome} + ' ' + ${autore.cognome}">Nome Autore</h1>
 
-		<div class="autore-info">
-			<div class="info-item">
-				<label>Cognome: <span th:text="${autore.cognome}">cognome</span></label>
-			</div>
-			<div class="info-item">
-				<label>Nazionalita: <span th:text="${autore.nazionalita}">nazionalità</span></label>
-			</div>
-			<div class="info-item">
-				<label>Data di nascita: <span th:text="${autore.dataNascita}">data di nascita</span></label>
-			</div>
-			<div class="info-item">
-				<label>Data di morte: <span th:text="${autore.dataMorte}">data di morte</span></label>
-			</div>
-		</div>
+            <div class="autore-info">
+                <div class="info-item">
+                    <label>Cognome: <span th:text="${autore.cognome}">cognome</span></label>
+                </div>
+                <div class="info-item">
+                    <label>Nazionalità: <span th:text="${autore.nazionalita}">nazionalità</span></label>
+                </div>
+                <div class="info-item">
+                    <label>Data di nascita: <span th:text="${autore.dataNascita}">data di nascita</span></label>
+                </div>
+                <div class="info-item">
+                    <label>Data di morte: <span th:text="${autore.dataMorte}">data di morte</span></label>
+                </div>
+            </div>
 
-		<div th:if="${autore.immagine != null}">
-			<img th:src="'data:image/jpeg;base64,' + ${autore.immagine}" alt="Immagine autore">
-		</div>
+            <div th:if="${autore.immagine != null}">
+                <img th:src="'data:image/jpeg;base64,' + ${autore.immagine}" alt="Immagine autore" />
+            </div>
+        </div>
 
-		<div class="no-autore" th:unless="${autore}">Non esiste</div>
-</main>
+        <div class="no-autore" th:unless="${autore}">
+            <p>Non esiste</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>SIW BOOKS &copy; 2025</p>
+        </div>
+    </footer>
 
 </body>
 </html>

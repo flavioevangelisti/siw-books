@@ -34,10 +34,10 @@ public class AuthenticationController {
 	
 	@GetMapping("/formRegistrazione")
 	public String getRegistrazione(Model model) {
-		model.addAttribute("user",new User());
-		model.addAttribute("credentials",new Credentials());
-		return "/formRegistrazione.html";
-		}
+	    model.addAttribute("user", new User());
+	    model.addAttribute("credentials", new Credentials());
+	    return "formRegistrazione.html";  // senza slash e senza .html
+	}
 	
 	
 	@PostMapping("/registrazione")

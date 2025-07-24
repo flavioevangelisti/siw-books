@@ -1,53 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Registrazione</title>
-<link rel="stylesheet" href="/css/stileLogin2.css" />
+<link rel="stylesheet" th:href="@{/css/navbar.css}" href="/navbar.css" />
+<link rel="stylesheet" th:href="@{/css/footer.css}" href="/footer.css" />
+<link rel="stylesheet" th:href="@{/css/login.css}" href="/login.css" />
 </head>
-<body>
-
 <body>
 	<div class="background">
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-	<form th:action="@{/registrazione}" method="POST" >
-	<h3>Registrazione</h3>
+
+	<form th:action="@{/registrazione}" method="POST">
+		<h3>Registrazione</h3>
+
 		<div>
-			<span th:text="${messaggioErrore}">Errore</span>
+			<span th:text="${messaggioErrore}" style="color:red;">Errore</span>
 		</div>
+
 		<div>
 			<label for="username">Username</label>
-        <input name="username" type="text" required />
-		<span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"
-				th:style="'color:red'">
-			</span>
-			<label>Password</label>
-			<span><input type="password"  required th:field="${credentials.password}" />
-			</span>
-			<span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"
-				th:style="'color:red'">
-			</span>
-			<label>Nome</label>
-			<span><input type="text"  required th:field="${user.name}" /></span>
-			<span th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}" th:style="'color:red'">
-			</span>
-			<label>Cognome</label>
-			<span><input type="text"  required th:field="${user.surname}" /></span>
-			<span th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}" th:style="'color:red'">
-			</span>
-			<label>Email</label>
-			<span><input type="text"  required th:field="${user.email}" /></span>
-			<span th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'">
-			</span>
-			</span>
-			
- 
-			<span><button type="submit">Conferma</button></span>
+			<input id="username" type="text" required th:field="*{credentials.username}" />
+			<span th:if="${#fields.hasErrors('credentials.username')}" th:errors="*{credentials.username}" style="color:red"></span>
 		</div>
-	</form>
-</body>
 
-</body>
-</html>
+		<div>
+			<label for="password">Password</label>
+			<input id="password" type="password" required th:field="*{credentials.password}" />
+			<span th:if="${#fields.hasErrors('credentials.password')}" th:errors="*{credentials.password}" style="color:red"></span>
+		</div>
+
+		<div>
+			<label for="name">Nome</label>
+			<input id="name" type="text" required th:field="*{user.name}" />
+			<span th:if="${#fields.hasErrors('user.name')}" th:errors="*{user.name}" style="color:red"></span>
+		</div>
+
+		<div>
+			<label for="surname">Cognome</label>
+			<input id="surname" type="text" required th:field="*{user.surname}" />
+			<span th:if="${#fields.hasErrors('user.surname')}" th:errors="*{user.surname}" style="color:red"></span>
+		</div>
+
+		<div>
+			<label for="email">Email</label>
+			<input id="email" type="email" required th:field="*{user.email}" />
+			<span th:if="${#fields.hasErrors('user.email')}" th:errors="*{user.email}" style="color:red"></span>
+		</div>
+
+		<div>
+			<button type="submit">Conferma</

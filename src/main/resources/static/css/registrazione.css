@@ -1,0 +1,103 @@
+/* Registrazione - Tema verde e panna coerente con il profilo */
+
+body {
+  background-color: #fdfcf6; /* panna */
+  color: #1f4033; /* verde scuro */
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.navbar, .footer {
+  /* Assumo siano già definiti nel CSS navbar.css e footer.css */
+  z-index: 1000;
+}
+
+.main-content {
+  flex: 1;
+  max-width: 480px;
+  margin: 96px auto 40px; /* spazio per navbar */
+  background: white;
+  padding: 32px 28px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+form h3 {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f4033;
+}
+
+form div {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #2c5f4a;
+}
+
+form input {
+  padding: 10px 14px;
+  border: 1.5px solid #dce5df;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  color: #1f4033;
+}
+
+form input:focus {
+  outline: none;
+  border-color: #2c5f4a;
+  box-shadow: 0 0 5px rgba(44,95,74,0.5);
+}
+
+form span[style*="color:red"] {
+  margin-top: 4px;
+  font-size: 0.875rem;
+  color: #c00;
+}
+
+form button[type="submit"] {
+  margin-top: 24px;
+  width: 100%;
+  padding: 12px 0;
+  background-color: #2c5f4a;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+form button[type="submit"]:hover {
+  background-color: #244d3c;
+}
+
+/* Messaggio errore globale */
+form > div:first-child span {
+  display: block;
+  text-align: center;
+  margin-bottom: 16px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  .main-content {
+    margin: 80px 16px 40px;
+    padding: 24px 20px;
+  }
+}
