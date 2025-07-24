@@ -1,59 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Modifica Autore</title>
-<link rel="stylesheet" href="/css/autore.css">
-</head>
-<body>
-
-<header>
-
-	
-		<div class="header-links">
-		    <a href="/">Home</a>
-            <a href="/logout">Logout</a>
-        </div>
-	
-	</header>
-	
-	<h1>Modifica Autore</h1>
-	<main>
-	<div class="autore-info">
-	<form th:action="@{/admin/formModificaAutore/{id}}" method="POST" >
-	<input type="hidden" name="id" th:value="${autore.id}" />
-  		
-		<div class="info-item">
-		<label>
-			 <span><a>Nome:</a> <span><input type="text" name="nuovoNome" placeholder="Nuovo nome" th:value="${autore.nome}" /></span>
-		   
-		   </label>
-</div><div class="info-item">
-		<label>
-			<a>Cognome:</a> <span><input type="text" name="nuovoCognome" placeholder="Nuovo cognome" th:value="${autore.cognome}" /></span>
-
-		  </label>
-</div><div class="info-item">
-		<label>
-			<a>Nazionalita:</a> <span><input type="text" name="nuovaNazionalita" placeholder="Nuovo nazionalita" th:value="${autore.nazionalita}" /></span>
-		  
-		</div><div class="info-item">
-		<label>
-			<a>Data di nascita:</a> <span><input type="text" name="nuovaDataNascita" placeholder="Nuovo data nascita" th:value="${autore.dataNascita}" /></span>
-		
-		</div><div class="info-item">
-		<label>
-			<a>Data  di morte:</a> <span><input type="text" name="nuovaDataMorte" placeholder="Nuovo data morte" th:value="${autore.dataMorte}" /></span>
-		
-		
-		
-		
-		
-			<span><button type="submit">Conferma</button></span>
-		</label></div>
-	</form>
-	</div>
-	</main>
-
-</body>
-</html>
+<form th:action="@{/admin/formModificaAutore/{id}(id=${autore.id})}" method="POST" >
+    <div class="info-item">
+        <label>Nome:
+            <input type="text" name="nome" placeholder="Nuovo nome" th:value="${autore.nome}" />
+        </label>
+    </div>
+    <div class="info-item">
+        <label>Cognome:
+            <input type="text" name="cognome" placeholder="Nuovo cognome" th:value="${autore.cognome}" />
+        </label>
+    </div>
+    <div class="info-item">
+        <label>Nazionalità:
+            <input type="text" name="nazionalita" placeholder="Nuova nazionalita" th:value="${autore.nazionalita}" />
+        </label>
+    </div>
+    <div class="info-item">
+        <label>Data di nascita:
+            <input type="date" name="dataNascita" th:value="${autore.dataNascita}" />
+        </label>
+    </div>
+    <div class="info-item">
+        <label>Data di morte:
+            <input type="date" name="dataMorte" th:value="${autore.dataMorte}" />
+        </label>
+    </div>
+    <button type="submit">Conferma</button>
+</form>

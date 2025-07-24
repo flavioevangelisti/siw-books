@@ -103,16 +103,17 @@ public class AutoreController {
 	}
 
 	@PostMapping("/admin/formModificaAutore/{id}")
-	public String modificaautore(@RequestParam("id") Long id,
-			@RequestParam("nuovoNome") String nuovoNome,
-			@RequestParam("nuovoCognome") String nuovoCognome,
-			@RequestParam("nuovaNazionalita") String nuovaNazionalita,
-			@RequestParam("nuovaDataNascita") LocalDate nuovaDataNascita,
-			@RequestParam("nuovaDataMorte") LocalDate nuovaDataMorte,
-			Model model) {
-		this.autoreService.modifica(id,nuovoNome,nuovoCognome,nuovaNazionalita,nuovaDataNascita,nuovaDataMorte);
-		return "/admin/indexAdmin";
+	public String modificaautore(@PathVariable("id") Long id,
+	                             @ModelAttribute("autore") @Valid Autore autore,
+	                             BindingResult bindingResult,
+	                             Model model) {
+	    if(bindingResult.hasErrors()) {
+	        return "admin/formModificaAutore";
+	    }
+	    autoreService.modifica(id, autore.getNome(), autore.getCognome(), autore.getNazionalita(), autore.getDataNascita(), autore.getDataMorte());
+	    return "/admin/indexAdmin";
 	}
+
 
 
 	@GetMapping("/autore/{id}/libri")
