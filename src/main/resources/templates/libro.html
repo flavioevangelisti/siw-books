@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title th:text="${libro.titolo}">Dettaglio Libro</title>
     <link rel="stylesheet" href="/style.css?version=2" />
-    <link rel="stylesheet" th:href="@{/css/navbar.css}" href="/navbar.css" />
-    <link rel="stylesheet" th:href="@{/css/footer.css}" href="/footer.css" />
-    <link rel="stylesheet" th:href="@{/css/libro.css}" href="/css/libro.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/libro.css}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
 </head>
-
 <body>
 
     <!-- Navbar -->
@@ -34,26 +33,18 @@
             <div class="libro-info">
                 <p><strong>Anno di pubblicazione:</strong> <span th:text="${libro.anno}">2025</span></p>
 
-                <div th:if="${libro.autori != null and !libro.autori.isEmpty()}">
-                    <p><strong>Autori:</strong></p>
-                    <ul class="autori-lista">
-                        <li th:each="a : ${libro.autori}" th:text="${a.nome + ' ' + a.cognome}">Autore</li>
+                <div>
+                    <h3>Autori del libro:</h3>
+                    <ul>
+                        <li th:each="autore : ${libro.autori}">
+                            <a th:href="@{'/autore/' + ${autore.id}}" th:text="${autore.nome} + ' ' + ${autore.cognome}"></a>
+                        </li>
                     </ul>
                 </div>
+            </div>
 
-                <div th:if="${libro.recensioni != null and !libro.recensioni.isEmpty()}">
-                    <p><strong>Recensioni:</strong></p>
-                    <div class="recensioni-box">
-                        <div class="recensione" th:each="r : ${libro.recensioni}">
-                            <p th:text="${r.testo}">Testo recensione</p>
-                            <small th:text="'Valutazione: ' + ${r.valutazione} + '/5'">Valutazione</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div th:if="${credentials != null}">
-                    <p><strong>Utente loggato:</strong> <span th:text="${credenziali.username}">username</span></p>
-                </div>
+            <div th:if="${credentials != null}">
+                <p><strong>Utente loggato:</strong> <span th:text="${credentials.username}">username</span></p>
             </div>
         </div>
     </main>
@@ -67,4 +58,3 @@
 
 </body>
 </html>
-

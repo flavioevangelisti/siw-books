@@ -1,27 +1,60 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <title>Recensioni di [[${libro.titolo}]]</title>
+    
+    <!-- Stili -->
+	<link rel="stylesheet" th:href="@{/css/navbar.css}" />
+	    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/recensioni.css}" href="/css/recensioni.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Montserrat&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Recensioni per il libro: <span th:text="${libro.titolo}">Titolo Libro</span></h1>
-    <p>Anno: <span th:text="${libro.anno}">Anno</span></p>
-    
-    <div th:if="${#lists.isEmpty(recensioni)}">
-        <p>Non ci sono recensioni per questo libro.</p>
-    </div>
-    
-    <div th:if="${!#lists.isEmpty(recensioni)}">
-        <ul>
-            <li th:each="recensione : ${recensioni}">
-                <strong>Voto:</strong> <span th:text="${recensione.voto}">5</span> / 5<br />
-                <strong>Testo:</strong> <span th:text="${recensione.testo}">Testo recensione</span><br />
-                <em>Da:</em> <span th:text="${recensione.recensore.name} + ' ' + ${recensione.recensore.surname}">Nome Cognome</span>
-            </li>
-        </ul>
-    </div>
-    
-    <a th:href="@{/paginaLibri}">Torna alla lista dei libri</a>
+	
+	<!-- Navbar -->
+	  <header class="navbar">
+	    <a class="logo" th:href="@{/}">Siw Books</a>
+	    <nav class="nav-links">
+	      <a href="paginaLibri">Libri</a>
+	      <a href="paginaAutori">Gli autori</a>
+
+	      <!-- Login se non autenticato -->
+	      <a th:if="${credentials == null}" href="/login">Login</a>
+
+	      <!-- Logout se autenticato -->
+		  <a th:if="${credentials != null}" th:href="@{'/user/' + ${credentials.id}}">Profilo</a>
+	    </nav>
+	  </header>
+
+
+    <main class="recensioni-container">
+        <section class="libro-info">
+            <h1 th:text="'Recensioni per il libro: ' + ${libro.titolo}">Titolo Libro</h1>
+            <p><strong>Anno di pubblicazione:</strong> <span th:text="${libro.anno}">Anno</span></p>
+        </section>
+
+        <section class="recensioni-lista">
+            <div th:if="${#lists.isEmpty(recensioni)}">
+                <p class="no-recensioni">Non ci sono recensioni per questo libro.</p>
+            </div>
+
+            <ul th:if="${!#lists.isEmpty(recensioni)}" class="lista">
+                <li th:each="recensione : ${recensioni}" class="recensione-card">
+                    <p><strong>Voto:</strong> <span th:text="${recensione.voto}">5</span> / 5</p>
+                    <p><strong>Testo:</strong> <span th:text="${recensione.testo}">Testo recensione</span></p>
+                    <p class="recensore"><em>Da:</em> <span th:text="${recensione.recensore.name + ' ' + recensione.recensore.surname}">Nome Cognome</span></p>
+                </li>
+            </ul>
+        </section>
+
+
+    </main>
+	
+	<!-- Footer -->
+	<footer class="footer">
+	  <p>SIW BOOKS &copy; 2025</p>
+	</footer>
+
 </body>
 </html>

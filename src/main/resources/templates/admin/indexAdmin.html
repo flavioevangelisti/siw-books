@@ -1,37 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
-<meta charset="ISO-8859-1">
-<title>homepage admin</title>
-<link rel="stylesheet" href="/css/adminIndex.css" />
+  <meta charset="UTF-8">
+  <title>Admin - Home</title>
+  
+  <!-- Font eleganti -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway&display=swap" rel="stylesheet">
+  
+  <!-- Stili base -->
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/base.css">
 </head>
 <body>
-<header>
-<div class="header-links">
-           <a href="paginaLibri">Libri</a>
-           
-           <a href="paginaAutori">Autori</a>
-            <a href="/logout">Logout</a>
-        </div>
-	
-	</header>
-	
-	  <section class="quadrant" id="quadrant1">
-        <a href="/admin/indexLibro" class="image-link">
-            <span class="image-text">Gestione libri</span>
-        </a>
-    </section>
-    
-    <section class="quadrant" id="quadrant2">
-        <a href="/admin/indexAutore" class="image-link">
-            <span class="image-text">Gestione autori</span>
-        </a>
-    </section>
-    
-    <section class="quadrant" id="quadrant3">
-        <a href="/admin/indexRecensione" class="image-link">
-            <span class="image-text">Gestione recensioni</span>
-        </a>
-    </section>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <a class="logo" href="/">Admin Panel</a>
+    <nav class="nav-links">
+      <a href="/paginaLibri">Libri</a>
+      <a href="/paginaAutori">Autori</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </header>
+
+  <!-- Hero / Benvenuto -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Benvenuto nell’area amministrativa</h1>
+      <p>Da qui puoi gestire libri, autori e recensioni del sito in modo semplice e veloce.</p>
+    </div>
+  </section>
+
+  <!-- Sezioni Gestione -->
+  <section class="admin-sections">
+    <div class="admin-card">
+      <a href="/admin/indexLibro">
+        <h2>Gestione Libri</h2>
+      </a>
+    </div>
+
+    <div class="admin-card">
+      <a href="/admin/indexAutore">
+        <h2>Gestione Autori</h2>
+      </a>
+    </div>
+
+    <div class="admin-card">
+      <a href="/admin/indexRecensione">
+        <h2>Gestione Recensioni</h2>
+      </a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>SIW BOOKS &copy; 2025</p>
+    </div>
+  </footer>
 </body>
 </html>

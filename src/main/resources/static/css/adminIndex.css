@@ -1,159 +1,109 @@
-@charset "ISO-8859-1";
+/* Reset base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background-color:#FDF5E6;
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f9fafb;
+  color: #1f4033;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-header {
-     background-color:#2E8B57; 
-            color: white; /* Testo bianco per contrastare il background nero */
-            height: 1.8em; /* Aumenta l'altezza dell'header */
-            margin-bottom: 0.5em;
-            padding: 1.3em; /* Aumenta il padding per un aspetto pi� grande */
-            text-align: right; 
-            display: flex;
-            align-items: center;
-            justify-content: space-between; /* Distribuisce lo spazio tra gli elementi */
-        }
-
-        .header-links {
-            display: flex;
-            gap: 6em; /* Spazio tra i link */
-            margin-left: 60em;
-            font-family: 'Dmsans', sans-serif; /* Cambia il font dei link */
-            font-style: italic;
-        }
-        .header-links2 {
-            display: flex;
-            gap: 6em; /* Spazio tra i link */
-            margin-left: 34em;
-            font-family: 'Dmsans', sans-serif; /* Cambia il font dei link */
-            font-style: italic;
-        }
-         .header-links3 {
-            display: flex;
-            gap: 6em; /* Spazio tra i link */
-            margin-left: 43em;
-            font-family: 'Dmsans', sans-serif; /* Cambia il font dei link */
-            font-style: italic;
-            
-        }
-        .header-links4 {
-            display: flex;
-            gap: 4em; /* Spazio tra i link */
-            margin-left: 35em;
-            font-family: 'Dmsans', sans-serif; /* Cambia il font dei link */
-            font-style: italic;
-        }
-
-         header a { 
-            text-decoration: none; 
-            color:white; /* Cambia il colore del testo dei link per adattarsi al nuovo background */
-            font-size: 5em; /* Puoi modificare la dimensione del font se necessario */
-            font-size: 1.4em; /* Modifica la dimensione del font dei link */
-        }
-        .header-links a:hover {
-    color: white;
-}
-   .header-links2 a:hover {
-    color:white;
-}
-    
-/* Layout a griglia 2x2 per le quadranti */
-
-    .quadrant {
-    width: 50%;
-    height: 44%; /* Altezza di ciascun quadrante, adattabile */
-    position: relative;
-    overflow: hidden;
-    float: left;
-    background-size: contain; /* L'immagine si adatta al contenitore senza essere tagliata */
-    background-position: center;
-    transition: transform 0.3s ease;
-    box-sizing: border-box; /* Assicura che il padding non modifichi le dimensioni */
-    padding: 10px; /* Aggiungi spazio intorno all'immagine */
-    border: 1px solid #ccc; /* Aggiungi bordo per chiarezza */
-    display: flex; /* Usa Flexbox per centrare il testo */
-    justify-content: center; /* Centra orizzontalmente */
-    align-items: center; /* Centra verticalmente */
+/* Header */
+.header-links {
+  background-color: #1f4033;
+  padding: 12px 24px;
+  text-align: right;
 }
 
-
-/* Immagini di sfondo per i quadranti */
-#quadrant1 {
-	
-/*      background-image: url('/immagini/libro2.jpg');  */
-background-color:#80ffff;
-    background-position: 100% 80%; /* Posizione dell'immagine */
-    background-size: 100%; /* Livello di zoom */
+.header-links a.btn-logout {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-#quadrant2 {
-/*     background-image: url('/immagini/autore2.jpg'); */
-background-color:#80ff80;
-    background-position: 100% 40%; /* Posizione dell'immagine */
-    background-size: 100%; /* Livello di zoom */
+.header-links a.btn-logout:hover,
+.header-links a.btn-logout:focus {
+  background-color: white;
+  color: #1f4033;
+  outline: none;
+  cursor: pointer;
 }
 
-#quadrant3 {
-
-background-color:lime;
-    background-position: 100% 90%; /* Posizione dell'immagine */
-    background-size: 100%; /* Livello di zoom */
-     font-family: cursive;
-    color: white;
+/* Main content container */
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
 }
 
-#quadrant4 {
-    background-image: url('/immagini/homepage4.jpeg');
-    background-position: 100% 80%; /* Posizione dell'immagine */
-    background-size: 100%; /* Livello di zoom */
-    font-family: cursive;
-    color: white;
+/* Container for quadrants */
+.quadrants-container {
+  display: flex;
+  gap: 32px;
+  max-width: 600px;
+  width: 100%;
+  justify-content: center;
 }
 
-
-
-/* Effetto zoom al passaggio del mouse */
-.quadrant:hover {
-    transform: scale(1.1); /* Zoom del 10% */
+/* Each quadrant style */
+.quadrant {
+  background: white;
+  flex: 1;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 160px;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
-/* Stile per il testo al centro dell'immagine */
+.quadrant:hover,
+.quadrant:focus-within {
+  box-shadow: 0 6px 24px rgba(255,153,0,0.25);
+  transform: translateY(-6px);
+  cursor: pointer;
+}
+
+/* Link inside quadrant */
 .image-link {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 1rem;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    color: #333;
-    display: inline-block;
-    transition: background-color 0.3s;
+  text-decoration: none;
+  color: #1f4033;
+  font-weight: 700;
+  font-size: 1.25rem;
+  user-select: none;
 }
 
-.image-link:hover {
-    background-color: rgba(255, 255, 255, 0.9);
+.image-link:focus {
+  outline: 3px solid #ff9900;
+  outline-offset: 4px;
 }
 
 .image-text {
-    font-size: 1.5rem;
-}
-   .immagine {
-    position: absolute;
-    top: -0px;
-    left: -38%;
-    overflow: hidden; /* Assicura che l'immagine non fuoriesca dai bordi dell'header */
+  pointer-events: none; /* testo non interferisce con click */
+  text-transform: capitalize;
 }
 
-.immagine img {
-    max-width: 19%; /* Imposta una larghezza massima, ad esempio 100px */
-    height: auto; /* Lascia che l'altezza si adatti alla larghezza mantenendo le proporzioni */
+/* Responsive: stacked quadrants */
+@media (max-width: 480px) {
+  .quadrants-container {
+    flex-direction: column;
+    gap: 20px;
+    max-width: 100%;
+  }
+  .quadrant {
+    height: 120px;
+  }
 }

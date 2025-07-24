@@ -56,8 +56,10 @@ public class LibroController {
 	public String getAutore(@PathVariable("id") Long id, Model model) {
 	    Libro libro = libroService.findById(id);
 	    model.addAttribute("libro", libro);
-
-	    // Recupera utente loggato
+	    
+	    // Aggiungi lista completa autori, come in paginaLibri
+	    model.addAttribute("listaAutori", autoreService.findAll());
+	    
 	    User user = userService.getUser();
 	    if (user != null) {
 	        model.addAttribute("credentials", credentialsService.getCredentials(user.getId()));
@@ -75,6 +77,10 @@ public class LibroController {
 	    }
 	    model.addAttribute("libro", libro);
 	    model.addAttribute("recensioni", libro.getRecensioni());
+	    User user = userService.getUser();
+	    if (user != null) {
+	        model.addAttribute("credentials", credentialsService.getCredentials(user.getId()));
+	    }
 	    return "recensioniLibro.html"; // dovrai creare questo template
 	}
 
