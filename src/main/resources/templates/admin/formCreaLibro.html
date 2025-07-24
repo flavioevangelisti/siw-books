@@ -1,51 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <meta charset="ISO-8859-1">
 <title>nuovo libro</title>
 <link rel="stylesheet" href="/css/li.css">
+<link rel="stylesheet" th:href="@{/css/navbar.css}" href="/navbar.css" />
 </head>
 <body>
+	
+	<!-- Navbar -->
+	  <header class="navbar">
+	    <a class="logo" th:href="@{/}">Siw Books</a>
+	    <nav class="nav-links">
+	      <a href="paginaLibri">Libri</a>
+	      <a href="paginaAutori">Gli autori</a>
 
-   <h1>Aggiungi Libro</h1>
-    <form th:action="@{/admin/formCreaLibro}" method="POST" th:object="${libro}" enctype="multipart/form-data">
-        <div th:if="${#fields.hasGlobalErrors()}">
-            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
-        </div>
-        
-         <div class="form-group">
-            <label>titolo:</label>
-            <span><input type="text" th:field="${libro.titolo}"></span>
-            <span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></span>
-        </div>
+	      <!-- Login se non autenticato -->
+	      <a th:if="${credentials == null}" href="/login">Login</a>
 
-        <div class="form-group">
-            <label>anno:</label>
-            <span><input type="text" th:field="${libro.anno}"></span>
-            <span th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}"></span>
-        </div>
-        
-		<div class="form-group">
-		    <label>Autori:</label>
-		    <select multiple th:field="*{autori}" class="form-control">
-		        <option th:each="autore : ${listaAutori}"
-		                th:value="${autore.id}"
-		                th:text="${autore.cognome}">
-		        </option>
-		    </select>
-		    <span th:if="${#fields.hasErrors('autori')}" th:errors="*{autori}"></span>
-		</div>
+	      <!-- Logout se autenticato -->
+		  <a th:if="${credentials != null}" th:href="@{'/user/' + ${credentials.id}}">Profilo</a>
+	    </nav>
+	  </header>
 
-            
-	<div class="form-group">
-  <span>Foto del libro:</span> <input type="file"
-					id="imageFile" name="imageFile" >
-				
-                
-</div>
-        <div class="form-group">
-            <span><button type="submit">Conferma</button></span>
-        </div>
+<h1 style="text-align:center; margin-top: 100px; color:#1f4033;">Aggiungi Libro</h1>
+
+<form th:action="@{/admin/formCreaLibro}" method="POST" th:object="${libro}" enctype="multipart/form-data" style="max-width: 380px; margin: 20px auto; padding: 32px; background: white; border-radius: 12px; box-shadow: 0 6px 15px rgba(31, 64, 51, 0.2); font-family: 'Montserrat', sans-serif; color: #2c5f4a;">
+
+    <div th:if="${#fields.hasGlobalErrors()}">
+        <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" style="color:#c00; margin-bottom: 12px;">...</p>
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 18px;">
+        <label>Titolo:</label>
+        <input type="text" th:field="${libro.titolo}" style="padding: 10px 12px; border: 1.5px solid #dce5df; border-radius: 8px; width: 100%; font-size: 1rem;"/>
+        <span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}" style="color:#c00; font-size: 0.9rem; display: block; margin-top: 4px;"></span>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 18px;">
+        <label>Anno:</label>
+        <input type="text" th:field="${libro.anno}" style="padding: 10px 12px; border: 1.5px solid #dce5df; border-radius: 8px; width: 100%; font-size: 1rem;"/>
+        <span th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}" style="color:#c00; font-size: 0.9rem; display: block; margin-top: 4px;"></span>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 18px;">
+        <label>Autori:</label>
+        <select multiple th:field="*{autori}" class="form-control" style="padding: 10px 12px; border: 1.5px solid #dce5df; border-radius: 8px; width: 100%; font-size: 1rem; color: #2c5f4a; height: 120px;">
+            <option th:each="autore : ${listaAutori}"
+                    th:value="${autore.id}"
+                    th:text="${autore.cognome}">
+            </option>
+        </select>
+        <span th:if="${#fields.hasErrors('autori')}" th:errors="*{autori}" style="color:#c00; font-size: 0.9rem; display: block; margin-top: 4px;"></span>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 18px;">
+        <label>Foto del libro:</label><br>
+        <input type="file" id="imageFile" name="imageFile" style="margin-top: 8px;">
+    </div>
+
+    <button type="submit" style="margin-top: 12px; padding: 12px 0; background-color: #2c5f4a; color: white; font-weight: 700; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer; width: 100%;">Conferma</button>
+
 </form>
+
 </body>
 </html>
