@@ -27,7 +27,7 @@ main {
   font-size: 2rem;
   margin-top: 32px;
   font-family: 'Montserrat', sans-serif;
-  color: #2E8B57;
+  color: #1f4033;
 }
 
 .form-aggiungi-recensione {
@@ -97,7 +97,7 @@ main {
 }
 
 .btn-aggiungi-recensione {
-  background-color: #2E8B57;
+  background-color: #1f4033;
   color: white;
   border: none;
   border-radius: 6px;
@@ -109,12 +109,12 @@ main {
   transition: background 0.2s;
 }
 .btn-aggiungi-recensione:hover {
-  background-color: #246b45;
+  background-color: #1f4033;
   color: #fff;
 }
 
 .btn-visualizza-recensioni {
-  background-color: #2E8B57;
+  background-color: #1f4033;
   color: white;
   border: none;
   border-radius: 6px;
@@ -131,7 +131,7 @@ main {
 }
 
 .btn-visualizza-recensioni:hover {
-  background-color: #246b45;
+  background-color: #1f4033;
   color: #fff;
 }
 

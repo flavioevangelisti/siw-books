@@ -7,13 +7,14 @@
 }
 
 body {
-  background-color: #FDF5E6;
+  background-color: #fdfcf6;
   font-family: 'Raleway', sans-serif;
-  color: #333;
+  color: #1f4033;
   line-height: 1.6;
 }
+
 .navbar {
-  background-color: #2E8B57;
+  background-color: #1f4033;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -29,8 +30,9 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-size: 1.8rem;
   font-weight: bold;
-  color: white;
+  color: #fdfcf6;
   user-select: none;
+  text-decoration: none;
 }
 
 .nav-links {
@@ -39,7 +41,7 @@ body {
 }
 
 .nav-links a {
-  color: white;
+  color: #fdfcf6;
   text-decoration: none;
   font-size: 1.1rem;
   font-style: italic;
@@ -47,5 +49,5 @@ body {
 }
 
 .nav-links a:hover {
-  color: #FFD700;
+  color: #a5d6af;
 }
