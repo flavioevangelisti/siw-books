@@ -55,6 +55,10 @@ public class RecensioneController {
 	@GetMapping("/recensione{id}")
 	public String getRecensione(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("recensione", this.recensioneService.findById(id));
+		User user = userService.getUser();
+	    if (user != null) {
+	        model.addAttribute("credentials", credentialsService.getCredentials(user.getId()));
+	    }
 		return "recensione.html";
 	}
 
@@ -62,6 +66,10 @@ public class RecensioneController {
 	public String formCreaRecensione(Model model) {
 		model.addAttribute("recensione", new Recensione());
 		model.addAttribute("listaLibri", libroService.findAll());
+		User user = userService.getUser();
+	    if (user != null) {
+	        model.addAttribute("credentials", credentialsService.getCredentials(user.getId()));
+	    }
 		return "formCreaRecensione.html";
 	}
 

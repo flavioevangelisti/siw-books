@@ -43,6 +43,10 @@ public class AutoreController {
 	@GetMapping("/paginaAutori")
 	public String paginaAutori(Model model) {
 		model.addAttribute("autori", this.autoreService.findAll());
+		User user = userService.getUser();
+	    if (user != null) {
+	        model.addAttribute("credentials", credentialsService.getCredentials(user.getId()));
+	    }
 
 		return "paginaAutori.html"; 
 	}

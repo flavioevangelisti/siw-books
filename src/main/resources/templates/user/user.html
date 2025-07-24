@@ -85,10 +85,10 @@
                     </tr>
                 </tbody>
             </table>
-            <a th:href="@{/recensioni/nuova}" class="cta-button">Scrivi una nuova recensione</a>
+            <a th:href="@{/formCreaRecensione}" class="cta-button">Scrivi una nuova recensione</a>
         </section>
 
-         Modal Cambio Password 
+         
         <div th:if="${showPasswordModal}" class="modal-overlay">
             <form class="password-card"
                   th:action="@{'/user/' + ${user.id} + '/cambiaPassword'}"

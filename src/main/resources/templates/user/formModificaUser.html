@@ -1,54 +1,39 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Modifica Profilo</title>
-    <link rel="stylesheet" th:href="@{/navbar.css}" />
-    <link rel="stylesheet" th:href="@{/footer.css}" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
-  </head>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Modifica Profilo - Siw Books</title>
+  <link rel="stylesheet" th:href="@{/css/navbar.css}" href="/css/navbar.css" />
+  <link rel="stylesheet" th:href="@{/css/footer.css}" href="/css/footer.css" />
+  <link rel="stylesheet" th:href="@{/css/login.css}" href="/css/login.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+</head>
 
-  <body>
-    <!-- Navbar -->
-    <header class="navbar">
-      <a class="logo" th:href="@{/}">Siw Books</a>
-	    </header>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <a class="logo" th:href="@{/}">Siw Books</a>
+  </header>
 
-    <!-- Main -->
-    <main class="container">
-      <h1>Modifica Profilo</h1>
+  <!-- Form Modifica Profilo -->
+  <form class="login-card" th:action="@{'/user/' + ${user.id} + '/modificaProfilo'}" th:object="${user}" method="post">
+    <h3>Modifica Profilo</h3>
 
-      <form class="form-prodotto" th:action="@{'/user/' + ${user.id} + '/modificaProfilo'}" th:object="${user}" method="post">
-        <div class="grid-prodotto">
-          <div>
-            <label for="name">Nome</label>
-            <input type="text" id="name" th:field="*{name}" placeholder="Inserisci il nome" required />
-          </div>
+    <label for="name">Nome</label>
+    <input type="text" id="name" th:field="*{name}" placeholder="Inserisci il nome" required />
 
-          <div>
-            <label for="surname">Cognome</label>
-            <input type="text" id="surname" th:field="*{surname}" placeholder="Inserisci il cognome" required />
-          </div>
+    <label for="surname">Cognome</label>
+    <input type="text" id="surname" th:field="*{surname}" placeholder="Inserisci il cognome" required />
 
-          <div>
-            <label for="email">Email</label>
-            <input type="email" id="email" th:field="*{email}" placeholder="Inserisci l'email" required />
-          </div>
-        </div>
+    <label for="email">Email</label>
+    <input type="email" id="email" th:field="*{email}" placeholder="Inserisci l'email" required />
 
-        <div class="form-buttons">
-          <button type="submit" class="btn submit-btn">Salva Modifiche</button>
-        </div>
+    <div class="form-buttons">
+      <button type="submit">Salva Modifiche</button>
+    </div>
 
-        <div th:if="${msgError}" class="error-message" th:text="${msgError}"></div>
-      </form>
-    </main>
+    <div th:if="${msgError}" class="error-message" th:text="${msgError}"></div>
+  </form>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-content">
-        <p>SIW BOOKS &copy; 2025</p>
-      </div>
-    </footer>
-  </body>
+</body>
 </html>

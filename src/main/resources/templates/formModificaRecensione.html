@@ -3,47 +3,56 @@
 <head>
     <meta charset="UTF-8" />
     <title>Modifica Recensione</title>
-    <link rel="stylesheet" th:href="@{/css/stile.css}" href="/css/stile.css"/>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/login.css}" href="/css/login.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
 
+    <!-- Navbar -->
     <header class="navbar">
         <a class="logo" th:href="@{/}">Siw Books</a>
-    </header>
-    <div style="height: 80px;"></div>
+        <nav class="nav-links">
+            <a href="paginaLibri">Libri</a>
+            <a href="paginaAutori">Gli autori</a>
 
-    <main class="main-content">
-        <section class="edit-review-section">
+            <!-- Login se non autenticato -->
+            <a th:if="${credentials == null}" href="/login">Login</a>
+
+            <!-- Profilo se autenticato -->
+            <a th:if="${credentials != null}" th:href="@{'/user/' + ${credentials.id}}">Profilo</a>
+        </nav>
+    </header>
+
+    <!-- Spacer per navbar fissa -->
+    <div style="height: 64px;"></div>
+
+    <main class="main-center">
+        <section>
             <h1>Modifica la tua recensione</h1>
 
             <form th:action="@{'/recensioni/' + ${recensione.id} + '/modifica'}" 
                   th:object="${recensione}" 
-                  method="post" class="review-form">
+                  method="post">
 
-                <div class="form-group">
-                    <label for="testo">Testo della recensione:</label>
-                    <textarea id="testo" th:field="*{testo}" required rows="6"></textarea>
-                    <div th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}" class="error-message"></div>
-                </div>
+                <label for="testo">Testo della recensione:</label>
+                <textarea id="testo" th:field="*{testo}" required rows="6"></textarea>
+                <span th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}" class="error"></span>
 
-                <div class="form-group">
-                    <label for="voto">Voto (da 1 a 5):</label>
-                    <input type="number" id="voto" th:field="*{voto}" min="1" max="5" required />
-                    <div th:if="${#fields.hasErrors('voto')}" th:errors="*{voto}" class="error-message"></div>
-                </div>
+                <label for="voto">Voto (da 1 a 5):</label>
+                <input type="number" id="voto" th:field="*{voto}" min="1" max="5" required />
+                <span th:if="${#fields.hasErrors('voto')}" th:errors="*{voto}" class="error"></span>
 
-                <div class="form-buttons">
-                    <button type="submit" class="cta-button">Salva modifiche</button>
-                    <a th:href="@{'/user/' + ${recensione.recensore.id}}" class="cta-button secondary">Annulla</a>
-                </div>
+                <button type="submit">Salva modifiche</button>
+
             </form>
         </section>
     </main>
 
     <footer class="footer">
         <div class="footer-content">
-            <p>Edicola del Faro - Grazie per essere con noi</p>
+            <p>SIW BOOKS &copy; 2025</p>
         </div>
     </footer>
 

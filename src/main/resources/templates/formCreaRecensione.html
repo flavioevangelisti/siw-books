@@ -1,45 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>nuova Recensione</title>
-<link rel="stylesheet" href="/css/re.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Siw Books - Aggiungi Recensione</title>
+  <link rel="stylesheet" th:href="@{/css/navbar.css}" />
+  <link rel="stylesheet" th:href="@{/css/footer.css}" />
+  <link rel="stylesheet" th:href="@{/css/formRecensione.css}" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
 
- <h1>Aggiungi Recensione</h1>
-    <form th:action="@{/formCreaRecensione}" method="POST" th:object="${recensione}" enctype="multipart/form-data">
-        <div th:if="${#fields.hasGlobalErrors()}">
-            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
-        </div>
-        
-        <div class="form-group">
-            <label>voto:</label>
-            <span><input type="text" th:field="*{voto}"></span>
-            <span th:if="${#fields.hasErrors('voto')}" th:errors="*{voto}"></span>
+	<!-- Navbar -->
+	  <header class="navbar">
+	    <a class="logo" th:href="@{/}">Siw Books</a>
+	    <nav class="nav-links">
+	      <a href="paginaLibri">Libri</a>
+	      <a href="paginaAutori">Gli autori</a>
+
+	      <!-- Login se non autenticato -->
+	      <a th:if="${credentials == null}" href="/login">Login</a>
+
+	      <!-- Logout se autenticato -->
+		  <a th:if="${credentials != null}" th:href="@{'/user/' + ${credentials.id}}">Profilo</a>
+	    </nav>
+	  </header>
+
+  <!-- Main -->
+  <main class="container">
+    <h1>Aggiungi Recensione</h1>
+
+    <form th:action="@{/formCreaRecensione}" method="post" th:object="${recensione}" enctype="multipart/form-data" class="form-prodotto">
+
+      <div th:if="${#fields.hasGlobalErrors()}" class="error-message">
+        <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">Errore generico</p>
+      </div>
+
+      <div class="grid-prodotto">
+        <div>
+          <label for="voto">Voto</label>
+          <input type="text" id="voto" th:field="*{voto}" placeholder="Inserisci il voto" required />
+          <span class="error-message" th:if="${#fields.hasErrors('voto')}" th:errors="*{voto}"></span>
         </div>
 
-        <div class="form-group">
-            <label>testo:</label>
-            <span><input type="text" th:field="*{testo}"></span>
-            <span th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"></span>
-        </div>
-        
-        <div class="form-group">
-            <label>libri:</label>
-            <select th:field="*{libro.id}" class="form-control">
-                <option th:each="libro : ${listaLibri}"
-                        th:value="${libro.id}"
-                        th:text="${libro.titolo}">
-                </option>
-            </select>
-            <!-- Qui mostriamo l'errore specifico per il libro -->
-            <span th:if="${#fields.hasErrors('libro')}" th:errors="*{libro}"></span>
+        <div>
+          <label for="testo">Testo</label>
+          <input type="text" id="testo" th:field="*{testo}" placeholder="Scrivi la recensione" required />
+          <span class="error-message" th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"></span>
         </div>
 
-        <div class="form-group">
-            <button type="submit">Conferma</button>
+        <div>
+          <label for="libro">Libri</label>
+          <select id="libro" th:field="*{libro.id}" required>
+            <option value="" disabled selected>Seleziona un libro</option>
+            <option th:each="libro : ${listaLibri}" 
+                    th:value="${libro.id}" 
+                    th:text="${libro.titolo}"></option>
+          </select>
+          <span class="error-message" th:if="${#fields.hasErrors('libro')}" th:errors="*{libro}"></span>
         </div>
+      </div>
+
+      <div class="form-buttons">
+        <button type="submit" class="btn submit-btn">Conferma</button>
+      </div>
+
     </form>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>SIW BOOKS &copy; 2025</p>
+    </div>
+  </footer>
+
 </body>
 </html>
+
+<link rel="stylesheet" th:href="@{/css/navbar.css}" />
+  <link rel="stylesheet" th:href="@{/css/footer.css}" />
+  <link rel="stylesheet" th:href="@{/css/login.css}" />

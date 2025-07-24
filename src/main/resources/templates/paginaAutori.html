@@ -11,17 +11,20 @@
 </head>
 <body style="min-height:100vh;display:flex;flex-direction:column;">
 
-  <!-- Navbar -->
-  <header class="navbar">
-    <a class="logo" th:href="@{/}">Siw Books</a>
-    <nav class="nav-links">
-      <a th:href="@{/paginaRecensioni}">Recensioni</a>
-      <a th:href="@{/paginaLibri}">Libri</a>
-      <a th:href="@{/paginaAutori}">Gli autori</a>
-      <a th:if="${credentials == null}" href="/login">Login</a>
-      <a th:if="${credentials != null}" th:href="@{/logout}">Logout</a>
-    </nav>
-  </header>
+	<!-- Navbar -->
+	<header class="navbar">
+	  <a class="logo" th:href="@{/}">Siw Books</a>
+	  <nav class="nav-links">
+	    <a href="paginaLibri">Libri</a>
+	    <a href="paginaAutori">Gli autori</a>
+
+	    <!-- Login se non autenticato -->
+	    <a th:if="${credentials == null}" href="/login">Login</a>
+
+	    <!-- Logout se autenticato -->
+	  <a th:if="${credentials != null}" th:href="@{'/user/' + ${credentials.id}}">Profilo</a>
+	  </nav>
+	</header>
 
   <main style="flex:1 0 auto;">
     <h1 class="pagina-titolo">I nostri autori</h1>
