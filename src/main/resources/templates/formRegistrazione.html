@@ -1,54 +1,48 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Registrazione</title>
-<link rel="stylesheet" th:href="@{/css/navbar.css}" href="/navbar.css" />
-<link rel="stylesheet" th:href="@{/css/footer.css}" href="/footer.css" />
-<link rel="stylesheet" th:href="@{/css/login.css}" href="/login.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Siw Books - Registrazione</title>
+  <link rel="stylesheet" th:href="@{/css/navbar.css}" href="/navbar.css" />
+  <link rel="stylesheet" th:href="@{/css/footer.css}" href="/footer.css" />
+  <link rel="stylesheet" th:href="@{/css/login.css}" href="/login.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-	<div class="background">
-        <div class="shape"></div>
-        <div class="shape"></div>
-    </div>
+  <!-- Navbar -->
+  <header class="navbar">
+    <a class="logo" th:href="@{/}">Siw Books</a>
+  </header>
 
-	<form th:action="@{/registrazione}" method="POST">
-		<h3>Registrazione</h3>
+  <form class="login-card" th:action="@{/registrazione}" method="POST">
+    <h3>Registrazione</h3>
 
-		<div>
-			<span th:text="${messaggioErrore}" style="color:red;">Errore</span>
-		</div>
+    <span class="error-message" th:text="${messaggioErrore}" th:if="${messaggioErrore != null}"></span>
 
-		<div>
-			<label for="username">Username</label>
-			<input id="username" type="text" required th:field="*{credentials.username}" />
-			<span th:if="${#fields.hasErrors('credentials.username')}" th:errors="*{credentials.username}" style="color:red"></span>
-		</div>
+    <label for="username">Username</label>
+    <input id="username" type="text" required th:field="*{credentials.username}" placeholder="Inserisci username" />
+    <span class="error-message" th:if="${#fields.hasErrors('credentials.username')}" th:errors="*{credentials.username}"></span>
 
-		<div>
-			<label for="password">Password</label>
-			<input id="password" type="password" required th:field="*{credentials.password}" />
-			<span th:if="${#fields.hasErrors('credentials.password')}" th:errors="*{credentials.password}" style="color:red"></span>
-		</div>
+    <label for="password">Password</label>
+    <input id="password" type="password" required th:field="*{credentials.password}" placeholder="Inserisci password" />
+    <span class="error-message" th:if="${#fields.hasErrors('credentials.password')}" th:errors="*{credentials.password}"></span>
 
-		<div>
-			<label for="name">Nome</label>
-			<input id="name" type="text" required th:field="*{user.name}" />
-			<span th:if="${#fields.hasErrors('user.name')}" th:errors="*{user.name}" style="color:red"></span>
-		</div>
+    <label for="name">Nome</label>
+    <input id="name" type="text" required th:field="*{user.name}" placeholder="Inserisci nome" />
+    <span class="error-message" th:if="${#fields.hasErrors('user.name')}" th:errors="*{user.name}"></span>
 
-		<div>
-			<label for="surname">Cognome</label>
-			<input id="surname" type="text" required th:field="*{user.surname}" />
-			<span th:if="${#fields.hasErrors('user.surname')}" th:errors="*{user.surname}" style="color:red"></span>
-		</div>
+    <label for="surname">Cognome</label>
+    <input id="surname" type="text" required th:field="*{user.surname}" placeholder="Inserisci cognome" />
+    <span class="error-message" th:if="${#fields.hasErrors('user.surname')}" th:errors="*{user.surname}"></span>
 
-		<div>
-			<label for="email">Email</label>
-			<input id="email" type="email" required th:field="*{user.email}" />
-			<span th:if="${#fields.hasErrors('user.email')}" th:errors="*{user.email}" style="color:red"></span>
-		</div>
+	<label for="email">Email</label>
+	<input id="email" name="email" type="email" required placeholder="Inserisci email" />
+    <span class="error-message" th:if="${#fields.hasErrors('user.email')}" th:errors="*{user.email}"></span>
 
-		<div>
-			<button type="submit">Conferma</
+    <button type="submit">Conferma</button>
+
+    <p>Hai già un account? <a th:href="@{/login}">Accedi qui</a></p>
+  </form>
+</body>
+</html>

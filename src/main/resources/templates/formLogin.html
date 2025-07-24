@@ -10,7 +10,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-
+	
+	<!-- Navbar -->
+	  <header class="navbar">
+	    <a class="logo" th:href="@{/}">Siw Books</a>
+		</header>
   <form class="login-card" th:action="@{/login}" method="post">
     <h3>Login</h3>
 
@@ -26,6 +30,7 @@
 
     <p>Non hai ancora un account? <a th:href="@{/formRegistrazione}">Registrati qui</a></p>
   </form>
+  
 
 </body>
 </html>
