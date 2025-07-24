@@ -3,16 +3,25 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>pagina libri admin</title>
+<link rel="stylesheet" th:href="@{/css/navbar.css}" href="/navbar.css" />
 <link rel="stylesheet" href="/css/paginaLibri1.css" />
 </head>
 <body>
 
-<header>
-	<div class="header-links">
-           <a href="/">Home</a>
-            <a href="/logout">Logout</a>
-        </div>
-    </header>
+	<!-- Navbar -->
+		  <header class="navbar">
+		    <a class="logo" th:href="@{/}">Siw Books</a>
+		    <nav class="nav-links">
+		      <a href="paginaLibri">Libri</a>
+		      <a href="paginaAutori">Gli autori</a>
+
+		      <!-- Login se non autenticato -->
+		      <a th:if="${credentials == null}" href="/login">Login</a>
+
+		      <!-- Logout se autenticato -->
+			  <a th:if="${credentials != null}" th:href="@{'/user/' + ${credentials.id}}">Profilo</a>
+		    </nav>
+		  </header>
     
     <h1>Libri</h1>
  

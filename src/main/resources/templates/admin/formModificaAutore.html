@@ -1,28 +1,59 @@
-<form th:action="@{/admin/formModificaAutore/{id}(id=${autore.id})}" method="POST" >
-    <div class="info-item">
-        <label>Nome:
-            <input type="text" name="nome" placeholder="Nuovo nome" th:value="${autore.nome}" />
-        </label>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="ISO-8859-1">
+<title>Modifica Autore</title>
+<link rel="stylesheet" th:href="@{/css/navbar.css}" href="/navbar.css" />
+<link rel="stylesheet" href="/css/au.css">
+</head>
+<body>
+	<!-- Navbar -->
+	  <header class="navbar">
+	    <a class="logo" th:href="@{/}">Siw Books</a>
+	    <nav class="nav-links">
+	      <a href="paginaLibri">Libri</a>
+	      <a href="paginaAutori">Gli autori</a>
+
+	      <!-- Login se non autenticato -->
+	      <a th:if="${credentials == null}" href="/login">Login</a>
+
+	      <!-- Logout se autenticato -->
+		  <a th:if="${credentials != null}" th:href="@{'/user/' + ${credentials.id}}">Profilo</a>
+	    </nav>
+	  </header>
+
+<h1 style="text-align:center; margin-top: 100px; color:#1f4033;">Modifica Autore</h1>
+
+<form th:action="@{/admin/formModificaAutore/{id}(id=${autore.id})}" method="POST"
+      style="max-width: 380px; margin: 20px auto; padding: 32px; background: white; border-radius: 12px; box-shadow: 0 6px 15px rgba(31, 64, 51, 0.2); font-family: 'Montserrat', sans-serif; color: #2c5f4a;">
+    
+    <div class="form-group" style="margin-bottom: 18px;">
+        <label>Nome:</label>
+        <input type="text" name="nome" placeholder="Nuovo nome" th:value="${autore.nome}" style="width:100%; padding:10px; border-radius:8px; border:1.5px solid #dce5df;">
     </div>
-    <div class="info-item">
-        <label>Cognome:
-            <input type="text" name="cognome" placeholder="Nuovo cognome" th:value="${autore.cognome}" />
-        </label>
+
+    <div class="form-group" style="margin-bottom: 18px;">
+        <label>Cognome:</label>
+        <input type="text" name="cognome" placeholder="Nuovo cognome" th:value="${autore.cognome}" style="width:100%; padding:10px; border-radius:8px; border:1.5px solid #dce5df;">
     </div>
-    <div class="info-item">
-        <label>Nazionalità:
-            <input type="text" name="nazionalita" placeholder="Nuova nazionalita" th:value="${autore.nazionalita}" />
-        </label>
+
+    <div class="form-group" style="margin-bottom: 18px;">
+        <label>Nazionalità:</label>
+        <input type="text" name="nazionalita" placeholder="Nuova nazionalità" th:value="${autore.nazionalita}" style="width:100%; padding:10px; border-radius:8px; border:1.5px solid #dce5df;">
     </div>
-    <div class="info-item">
-        <label>Data di nascita:
-            <input type="date" name="dataNascita" th:value="${autore.dataNascita}" />
-        </label>
+
+    <div class="form-group" style="margin-bottom: 18px;">
+        <label>Data di nascita:</label>
+        <input type="date" name="dataNascita" th:value="${autore.dataNascita}" style="width:100%; padding:10px; border-radius:8px; border:1.5px solid #dce5df;">
     </div>
-    <div class="info-item">
-        <label>Data di morte:
-            <input type="date" name="dataMorte" th:value="${autore.dataMorte}" />
-        </label>
+
+    <div class="form-group" style="margin-bottom: 18px;">
+        <label>Data di morte:</label>
+        <input type="date" name="dataMorte" th:value="${autore.dataMorte}" style="width:100%; padding:10px; border-radius:8px; border:1.5px solid #dce5df;">
     </div>
-    <button type="submit">Conferma</button>
+
+    <button type="submit" style="width:100%; padding:12px; background-color:#2c5f4a; color:white; font-weight:bold; border:none; border-radius:8px;">Conferma</button>
 </form>
+
+</body>
+</html>

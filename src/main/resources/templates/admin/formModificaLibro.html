@@ -1,50 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <meta charset="ISO-8859-1">
 <title>Modifica Libro</title>
+<link rel="stylesheet" th:href="@{/css/navbar.css}" href="/navbar.css" />
 <link rel="stylesheet" href="/css/libro.css">
 </head>
 <body>
+	<!-- Navbar -->
+	  <header class="navbar">
+	    <a class="logo" th:href="@{/}">Siw Books</a>
+	    <nav class="nav-links">
+	      <a href="paginaLibri">Libri</a>
+	      <a href="paginaAutori">Gli autori</a>
 
-<header>
+	      <!-- Login se non autenticato -->
+	      <a th:if="${credentials == null}" href="/login">Login</a>
 
-	
-		<div class="header-links">
-		    <a href="/">Home</a>
-            <a href="/logout">Logout</a>
+	      <!-- Logout se autenticato -->
+		  <a th:if="${credentials != null}" th:href="@{'/user/' + ${credentials.id}}">Profilo</a>
+	    </nav>
+	  </header>
+
+<h1 style="text-align:center; margin-top: 100px; color:#1f4033;">Modifica Libro</h1>
+
+<main>
+    <form th:action="@{/admin/formModificaLibro/{id}(id=${libro.id})}" method="POST"
+          style="max-width: 380px; margin: 20px auto; padding: 32px; background: white; border-radius: 12px; box-shadow: 0 6px 15px rgba(31, 64, 51, 0.2); font-family: 'Montserrat', sans-serif; color: #2c5f4a;">
+        
+        <input type="hidden" name="id" th:value="${libro.id}" />
+
+        <div class="form-group" style="margin-bottom: 18px;">
+            <label>Titolo:</label>
+            <input type="text" name="nuovoTitolo" placeholder="Nuovo titolo" th:value="${libro.titolo}" style="width:100%; padding:10px; border-radius:8px; border:1.5px solid #dce5df;">
         </div>
-	
-	</header>
-	
 
-<h1>Modifica Libro</h1>
-	<main>
-	<div class="libro-info">
-	<form th:action="@{/admin/formModificaLibro/{id}}" method="POST" >
-	<input type="hidden" name="id" th:value="${libro.id}" />
-  		
-		<div class="info-item">
-		<label>
-			 <span><a>Titolo:</a> <span><input type="text" name="nuovoTitolo" placeholder="Nuovo titolo" th:value="${libro.titolo}" /></span>
-		   
-		   
-		    
-		</label>
-</div><div class="info-item">
-		<label>
-			<a>Anno:</a> <span><input type="text" name="nuovoAnno" placeholder="Nuovo anno" th:value="${libro.anno}" /></span>
+        <div class="form-group" style="margin-bottom: 18px;">
+            <label>Anno:</label>
+            <input type="text" name="nuovoAnno" placeholder="Nuovo anno" th:value="${libro.anno}" style="width:100%; padding:10px; border-radius:8px; border:1.5px solid #dce5df;">
+        </div>
 
-		  
-		
-		</label></div><div class="info-item">
-		<label>
-			<span><button type="submit">Conferma</button></span>
-		</label></div>
-	</form>
-	</div>
-	</main>
-	
+        <button type="submit" style="width:100%; padding:12px; background-color:#2c5f4a; color:white; font-weight:bold; border:none; border-radius:8px;">Conferma</button>
+    </form>
+</main>
 
 </body>
 </html>
